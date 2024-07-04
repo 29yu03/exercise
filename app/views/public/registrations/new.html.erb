@@ -1,29 +1,60 @@
-<h2>Sign up</h2>
+<div class="container px-5", style="background-color: #EFEFEF;">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "public/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <div class="text-center mt-4">
+    <h3><strong>Training  IDを作成</strong></h3>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "public/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+    <div class="row justify-content-center mt-4">
+      <div class="col-md-2">
+        <%= f.text_field :last_name, autofocus: true, placeholder: "姓", class: "form-control" %>
+      </div>
+      <div class="col-md-2">
+        <%= f.text_field :first_name, placeholder: "名", class: "form-control" %>
+      </div>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+    <div class="row justify-content-center mt-2">
+      <div class="col-md-2">
+        <%= f.text_field :last_name_kana, placeholder: "セイ", class: "form-control" %>
+      </div>
+      <div class="col-md-2">
+        <%= f.text_field :first_name_kana, placeholder: "メイ", class: "form-control" %>
+      </div>
+    </div>
 
-<%= render "public/shared/links" %>
+    <div class="row justify-content-center mt-2">
+      <div class="col-md-4">
+        <%= f.email_field :email, placeholder: "メールアドレス", autocomplete: "email", class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mt-2">
+      <div class="col-md-4">
+        <%= f.text_field :telephone_number, placeholder: "電話番号", pattern: '\d{10,11}', class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+      <div class="col-md-4">
+        <% if @minimum_password_length %>
+          <%= f.password_field :password, placeholder: "パスワード(#{@minimum_password_length}文字以上)", autocomplete: "new-password", class: "form-control" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mt-2">
+      <div class="col-md-4">
+        <%= f.password_field :password_confirmation, placeholder: "パスワード(確認用)",autocomplete: "new-password", class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+      <%= f.submit " Sign up ", class: "btn btn-info btn-md" %>
+    </div>
+  <% end %>
+
+  <%= render "public/shared/links" %>
+</div>

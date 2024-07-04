@@ -23,3 +23,4 @@ $(document).ready(function() {
     wrap: false      // 最初と最後のスライドでのループを無効にする
   });
 });
+
