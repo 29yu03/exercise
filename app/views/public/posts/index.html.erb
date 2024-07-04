@@ -59,7 +59,7 @@
         <% end %>
         <div class="card-body">
           <h5 class="card-title"><%= post.title %></h5>
-          <p class="card-text"><%= post.subtitle %></p>
+          <p class="card-text"><%= truncate(post.subtitle, length: 40, omission: '...') %></p>
           <div class="text-center">
             <%= link_to "続きを読む", post_path(post), class: "btn btn-outline-info" %>
           </div>
