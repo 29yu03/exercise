@@ -1,0 +1,39 @@
+
+<div class="row m-5">
+  <h1 style="color: #545454; font-weight: bold;">運動を通じて新たな自分と<br>
+  出会える、コミュニティサイト</h1>
+</div>
+
+<div class="row pl-5 mt-5 mx-5">
+  <p>最新の情報をチェック</p>
+</div>
+<div id="postCarousel" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <% @posts.each_slice(5).with_index do |posts_slice, index| %>
+      <div class="carousel-item <%= index == 0 ? 'active' : '' %>">
+        <div class="row">
+          <% posts_slice.each do |post| %>
+            <div class="col">
+              <div class="mt-4 mr-5 shadow p-3 mb-5 bg-white" style="width: 200px; height: 250px; border-radius: 35px;">
+                <!-- 投稿の内容を表示 -->
+                <h5><%= post.title %></h5>
+                <!-- その他の投稿情報 -->
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <!-- 左右のナビゲーションボタン -->
+  <a class="carousel-control-prev" href="#postCarousel" role="button" data-slide="prev" style="color: gray">
+  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  <span class="sr-only">前へ</span>
+</a>
+<a class="carousel-control-next" href="#postCarousel" role="button" data-slide="next" style="color: gray;">
+  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  <span class="sr-only">次へ</span>
+</a>
+
+</div>
+

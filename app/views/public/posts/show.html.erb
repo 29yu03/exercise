@@ -1,0 +1,28 @@
+<div class="row m-5">
+  <div class="col-3 mx-3", style="background-color: white;">
+    <div class="row my-4">
+      <div class="col">写真</div>
+      <div class="col">
+        ユーザー名<br>
+        紹介文</div>
+    </div>
+    <div class="row">
+      <div class="col">フォローボタン</div>
+      <div class="col">DMマーク</div>
+    </div>
+  </div>
+  <div class="col mx-3">
+    <%= image_tag @post.image.variant(resize_to_fit: [400, nil]).processed, alt: "Post Image" %>
+  </div>
+  <div class="col">
+    <h2 class="pb-4"><%= @post.title %></h2>
+    <h5><%= @post.subtitle %></h5>
+  </div>
+</div>
+<div class="row px-5">
+  <div class="col-2"></div>
+  <div class="col-8">
+    <p><%= simple_format(@post.body) %></p>
+  </div>
+  <div class="col-2"></div>
+</div>

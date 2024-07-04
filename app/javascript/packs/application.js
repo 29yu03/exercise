@@ -8,6 +8,18 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+import "jquery";
+import "popper.js";
+import "bootstrap";
+import "../stylesheets/application";
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+$(document).ready(function() {
+  $('#postCarousel').carousel({
+    interval: false, // 自動スライドを無効にする
+    wrap: false      // 最初と最後のスライドでのループを無効にする
+  });
+});
