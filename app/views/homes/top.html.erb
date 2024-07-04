@@ -1,11 +1,20 @@
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1;">
+  <%= image_tag 'muscle.png', size: "600x600", class: "img-fluid" %>
+</div>
 
 <div class="row m-5">
-  <h1 style="color: #545454; font-weight: bold;">運動を通じて新たな自分と<br>
-  出会える、コミュニティサイト</h1>
+  <div class="col"></div>
+  <div class="col mt-4">
+    <h1 style="color: #545454; font-weight: bold; font-family: 'Yu Gothic', 'Noto Sans JP', sans-serif line-height: 1.8;">
+      運動を通じて新たな自分と<br>
+      出会える、コミュニティサイト
+    </h1>
+  </div>
 </div>
 
 <div class="row pl-5 mt-5 mx-5">
-  <p>最新の情報をチェック</p>
+  <h5 style="color: #545454; font-weight: bold; font-family: 'Yu Gothic', 'Noto Sans JP', sans-serif line-height: 1.8;">
+    <span style="color: black;">最新</span>の情報をチェック</h5>
 </div>
 <div id="postCarousel" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
@@ -15,9 +24,8 @@
           <% posts_slice.each do |post| %>
             <div class="col">
               <div class="mt-4 mr-5 shadow p-3 mb-5 bg-white" style="width: 200px; height: 250px; border-radius: 35px;">
-                <!-- 投稿の内容を表示 -->
+                <!-- 投稿のタイトルを表示 -->
                 <h5><%= post.title %></h5>
-                <!-- その他の投稿情報 -->
               </div>
             </div>
           <% end %>
@@ -26,14 +34,12 @@
     <% end %>
   </div>
   <!-- 左右のナビゲーションボタン -->
-  <a class="carousel-control-prev" href="#postCarousel" role="button" data-slide="prev" style="color: gray">
-  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-  <span class="sr-only">前へ</span>
-</a>
-<a class="carousel-control-next" href="#postCarousel" role="button" data-slide="next" style="color: gray;">
-  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-  <span class="sr-only">次へ</span>
-</a>
+  <%= link_to "#postCarousel", class: "carousel-control-prev", data: { slide: "prev" } do %>
+    <div class="fa-3x" aria-hidden="true" style="color: black;"><i class="fa-solid fa-circle-chevron-left"></i></div>
+  <% end %>
 
+  <%= link_to "#postCarousel", class: "carousel-control-next", data: { slide: "next" } do %>
+    <div class="fa-3x" aria-hidden="true" style="color: black;"><i class="fa-solid fa-circle-chevron-right"></i></div>
+  <% end %>
 </div>
 

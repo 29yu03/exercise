@@ -4,11 +4,20 @@ class Public::PostsController < ApplicationController
     @posts = Post.all
   end
 
-  def create
-    post = Post.new(post_params)
-    post.save
-    redirect_to '/posts'
+   def create
+    @post = Post.new(post_params)
+    @post.user_id = current_user.id
+
+    if @post.save
+      flash[:notice] = "投稿が作成されました。"
+      redirect_to posts_path
+    else
+      @posts = Post.all
+      @user = current_user
+      render :index
+    end
   end
+
 
   def show
     @post = Post.find(params[:id])

@@ -1,2 +1,50 @@
-<h1>Public::Users#show</h1>
-<p>Find me in app/views/public/users/show.html.erb</p>
+<div class="container pl-1", style="background-color: #EFEFEF;">
+<div class="row m-3 pt-4">
+  <div class="p-2 bg-white" style="border-radius: 15px; display: flex; align-items: center; justify-content: center;">
+    <%= image_tag @user.get_profile_image, width: 170, height: 170, style: "border-radius: 10px;" %>
+  </div>
+  <div class="col">
+    <%= @user.last_name %>
+  </div>
+
+
+
+</div>
+
+<div class="row my-5">
+  <div class="col-7">
+    <div class="row">
+    <% @posts.each do |post| %>
+      <div class="col mb-3">
+        <div class="shadow p-3 bg-white" style="width: 260px; height: 280px; border-radius: 15px;">
+          <% if post.image.attached? %>
+            <%= image_tag post.get_image, class: "card-img-top", alt: "Post Image", style: "height: 120px; object-fit: cover;" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', class: "card-img-top", alt: "No Image", style: "height: 100px; object-fit: cover;" %>
+          <% end %>
+          <p style="font-size: 13px;"><%= post.title %></p>
+          <p style="font-size: 10px;"><%= truncate(post.subtitle, length: 40, omission: '...') %></p>
+          <div class="text-center pt-2">
+            <%= link_to "続きを読む", post_path(post), class: "btn btn-outline-info btn-sm" %>
+          </div>
+
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div>
+    <div class="col-5 px-5">
+      <div class="shadow p-3 bg-white" style="width: 500px; height: 700px; border-radius: 15px;">
+        記事
+
+        keys<br>
+        false<br>
+        false<br>
+        keys<br>
+        false<br>
+        keys<br>
+        false<br>
+      </div>
+    </div>
+  </div>
+</div>

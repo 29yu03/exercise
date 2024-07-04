@@ -13,22 +13,9 @@
  *= require_tree .
  *= require_self
  */
- bo {
-   
- }
- 
-.header-content {
-  display: flex;
-  align-items: center;
-}
-
-
-.flex {
-  display: flex;
-  list-style: none;
-  align-items: center;
-}
-
-.flex li {
-  margin-right: 10px;
-}
+ .background-image {
+      position: fixed;
+      z-index: -1;
+      top: 0;
+      right: 0;
+    }

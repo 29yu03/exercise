@@ -19,12 +19,8 @@ Rails.application.routes.draw do
 
   scope module: 'public' do
     resources :communities, only: [:index, :show, :edit]
-    resources :posts, only: [:index, :show, :edit, :create]
-    resources :users, only: [:show, :edit] do
-      collection do
-        get 'mypage', to: 'users#mypage', as: :mypage
-      end
-    end
+    resources :posts, only: [:index, :show, :edit, :create, :update]
+    resources :users, only: [:show, :edit, :update]
   end
 
 
