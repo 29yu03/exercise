@@ -1,2 +1,33 @@
-<h1>Admin::Communities#index</h1>
-<p>Find me in app/views/admin/communities/index.html.erb</p>
+ 　<%= form_with model: @community, url: admin_communities_path do |f| %>
+      <div class="row mb-5 d-flex align-items-center">
+        <b class="mx-3"><%= f.label :コミュニティ名 %></b>
+        <div class="mx-4"><%= f.text_field :name, placeholder: 'コミュニティ名' %></div>
+        <div class="mx-4"><%= f.submit " 新規登録 ", class: "btn btn-success btn-lg genre_btn" %></div>
+     </div>
+    <% end %>
+    <div class="row">
+      <div class="col-5">
+        <table class="table community-table ">
+          <thead>
+            <tr>
+              <th class='community-active'>
+                コミュニティ
+              </th>
+              <th class='table-active'></th>
+            </tr>
+          </thead>
+          <% @communities.each do |community| %>
+            <tr>
+              <td class="col-7">
+                <%= community.name %>
+              </td>
+              <td class="col-5 pl-5">
+                <%= link_to "  編集する ", edit_admin_community_path(community.id), class: "btn btn-md btn-success" %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    <div class="col"></div>
+  </div>
+</div>

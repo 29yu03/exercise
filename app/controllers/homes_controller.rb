@@ -1,7 +1,7 @@
 class HomesController < ApplicationController
 
   def top
-    @posts = Post.limit(10)
+    @posts = Post.includes(:user).limit(10)
   end
 
   def about

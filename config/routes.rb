@@ -5,9 +5,10 @@ Rails.application.routes.draw do
   }
 
   namespace :admin do
-    resources :communities, only: [:index, :show]
-    resources :posts, only: [:index, :show]
-    resources :users, only: [:index, :show, :edit]
+    resources :communities, only: [:index, :edit, :create, :update]
+    resources :posts, only: [:index, :show, :edit, :update]
+    resources :users, only: [:index, :show, :edit, :create, :update]
+    resources :topics, only: [:index, :edit, :create, :update]
     get '/', to: 'homes#top', as: :top
   end
 
@@ -21,6 +22,7 @@ Rails.application.routes.draw do
     resources :communities, only: [:index, :show, :edit]
     resources :posts, only: [:index, :show, :edit, :create, :update]
     resources :users, only: [:show, :edit, :update]
+    resources :topics, only: [:index, :show, :edit, :create, :update]
   end
 
 

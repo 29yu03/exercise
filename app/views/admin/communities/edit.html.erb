@@ -1,0 +1,20 @@
+<h1>Admin::Communities#show</h1>
+<p>Find me in app/views/admin/communities/show.html.erb</p>
+<div class="container">
+  <div class="row m-5">
+      <h4 style="background-color: #E6E6E6;">　コミュニティ編集　</h4>
+  </div>
+    <%= form_with model: [:admin, @community], url: admin_community_path(@community), method: :patch do |f| %>
+      <div class="row mb-5 d-flex align-items-center">
+        <div class="mx-4"><%= f.label :コミュニティ名 %></div>
+        <div class="mx-5"><%= f.text_field :name, class: "community-edit-field" %></div>
+        <div class="mx-4">
+          <%= f.submit "変更を保存", class: "btn btn-success community_edit_btn" %>
+        </div>
+      </div>
+    <% end %>
+
+
+  </div>
+  </div>
+</div>

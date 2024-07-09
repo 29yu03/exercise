@@ -4,17 +4,17 @@
 
 <div class="row m-5">
   <div class="col"></div>
-  <div class="col mt-4">
-    <h1 style="color: #545454; font-weight: bold; font-family: 'Yu Gothic', 'Noto Sans JP', sans-serif line-height: 1.8;">
+  <div class="col my-4">
+    <h1 style="color: #545454; font-weight: bold; line-height: 1.4; font-size: 48px;">
       運動を通じて新たな自分と<br>
       出会える、コミュニティサイト
     </h1>
   </div>
 </div>
 
-<div class="row pl-5 mt-5 mx-5">
-  <h5 style="color: #545454; font-weight: bold; font-family: 'Yu Gothic', 'Noto Sans JP', sans-serif line-height: 1.8;">
-    <span style="color: black;">最新</span>の情報をチェック</h5>
+<div class="row pl-5 mx-5 pb-4">
+  <h4 style="color: #545454; font-weight: bold;">
+    <span style="color: black;">最新</span>の情報をチェック</h4>
 </div>
 <div id="postCarousel" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
@@ -23,11 +23,29 @@
         <div class="row">
           <% posts_slice.each do |post| %>
             <div class="col">
-              <div class="mt-4 mr-5 shadow p-3 mb-5 bg-white" style="width: 200px; height: 250px; border-radius: 35px;">
-                <!-- 投稿のタイトルを表示 -->
-                <h5><%= post.title %></h5>
+              <div class="mt-5 mr-5 shadow p-3 mb-5 bg-white" style="width: 290px; height: 370px; border-radius: 35px;">
+                <!-- 投稿を表示 -->
+                <div class="row px-3" style="height: 20%;">
+                  <h5 class="w-100" style="font-size: 17px;"><b><%= post.title %></b></h5>
+                </div>
+                <div class="row px-3" style="height: 35%;">
+                  <h5 class="w-100" style="font-size: 14px;"><%= post.subtitle %></h5>
+                </div>
+                <div class="row px-3" style="height: 20%;">
+                  いいね等
+                </div>
+                <div class="row px-1" style="height: 25%;">
+                  <div class="col-7 pt-2">
+                    <b style="font-size: 18px;"><%= post.user.last_name %><%= post.user.first_name %></b>
+                    <p class="text-success pt-2", style="font-size: 12px;"><%= post.user.introduction %></p>
+                  </div>
+                  <div class="col-5">
+                    <%= image_tag post.user.get_profile_image(90, 90), style: "border-radius: 90px; width: 90px;" %>
+                  </div>
+                </div>
               </div>
             </div>
+
           <% end %>
         </div>
       </div>

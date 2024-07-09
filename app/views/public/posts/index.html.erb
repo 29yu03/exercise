@@ -1,3 +1,4 @@
+<div class="container" style="background-color: #EFEFEF;">
 <!-- index.html.erb -->
 <div class="my-5 text-center">
   <%= link_to "#newPostModal", data: { toggle: "modal" } do %>
@@ -46,20 +47,26 @@
   </div>
 </div>
 
-<div class="px-5">
 
-<div class="row m-5">
+
+<div class="row my-5">
   <% @posts.each do |post| %>
-    <div class="col d-flex justify-content-center mb-4">
-      <div class="card" style="width: 25rem;">
+    <div class="col-md-4 d-flex justify-content-center mb-4">
+      <div class="card" style="width: 25rem; position: relative; padding-top: 65px;">
+        <!-- プロフィール画像をカードの左上に絶対位置で配置 -->
+        <div style="position: absolute; top: 5px; left: 10px;">
+          <%= image_tag post.user.get_profile_image(55,55), width: 55, height: 55, style: "border-radius: 50px;" %>
+          <span class="mt-4" style="font-size: 15px;">　<%= post.user.last_name %> <%= post.user.first_name %></span>
+        </div>
         <% if post.image.attached? %>
           <%= image_tag post.get_image, class: "card-img-top", alt: "Post Image" %>
         <% else %>
           <%= image_tag 'no_image.jpg', class: "card-img-top", size: "300x300", alt: "No Image" %>
         <% end %>
         <div class="card-body">
-          <h5 class="card-title"><%= post.title %></h5>
-          <p class="card-text"><%= truncate(post.subtitle, length: 40, omission: '...') %></p>
+          <div class="pb-4">♡ ♪</div>
+          <h5 class="card-title" style="font-size: 17px;"><%= post.title %></h5> <!-- タイトルの上部マージンを追加 -->
+          <p class="card-text" style="font-size: 13px;"><%= truncate(post.subtitle, length: 40, omission: '...') %></p>
           <div class="text-center">
             <%= link_to "続きを読む", post_path(post), class: "btn btn-outline-info" %>
           </div>
@@ -68,4 +75,10 @@
     </div>
   <% end %>
 </div>
+
+
+
+
+
+
 </div>
