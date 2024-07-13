@@ -1,9 +1,12 @@
 <div class="container" style="background-color: #EFEFEF;">
 <!-- index.html.erb -->
+
 <div class="my-5 text-center">
-  <%= link_to "#newPostModal", data: { toggle: "modal" } do %>
-  <i class="far fa-square-plus", style="font-size: 100px; color: gray;"></i>
-<% end %>
+  <% if user_signed_in? %>  <!-- もしログインしてなければアイコンを表示させない -->
+    <%= link_to "#newPostModal", data: { toggle: "modal" } do %>
+      <i class="far fa-square-plus", style="font-size: 100px; color: gray;"></i>
+    <% end %>
+  <% end %>
 
 <!-- モーダル -->
   <div class="modal fade" id="newPostModal" tabindex="-1" role="dialog" aria-labelledby="newPostModalLabel" aria-hidden="true">

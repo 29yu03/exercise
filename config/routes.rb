@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   scope module: 'public' do
     resources :communities, only: [:index, :show, :edit]
     resources :posts, only: [:index, :show, :edit, :create, :update]
-    resources :users, only: [:show, :edit, :update]
+    resources :users, only: [:show, :edit, :update, :destroy]
     resources :topics, only: [:index, :show, :edit, :create, :update]
   end
 

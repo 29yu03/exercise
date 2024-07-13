@@ -62,4 +62,9 @@
     </div>
   </div>
 <% end %>
+
+<%= button_to "退会する", user_path(@user), method: :delete, data: { confirm: "本当に退会しますか？" }, class: "btn btn-danger" %>
+
+<%= link_to 'Back', user_path %>
+
 </div>

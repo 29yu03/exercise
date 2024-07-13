@@ -22,6 +22,15 @@ class Public::UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user = User.find_by(id: params[:id])
+    @user.posts.destroy_all if @user.posts.any?
+    @user.topics.destroy_all if @user.topics.any?
+    @user.update(is_active: false)
+    reset_session
+    redirect_to root_path, notice: "退会が完了しました。"
+  end
+
   private
 
    def set_user
