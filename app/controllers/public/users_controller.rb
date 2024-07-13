@@ -33,7 +33,7 @@ class Public::UsersController < ApplicationController
 
   private
 
-   def set_user
+  def set_user
     @user = User.find(params[:id])
   end
 
@@ -46,3 +46,5 @@ class Public::UsersController < ApplicationController
   end
 
 end
+
+
