@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  namespace :public do
+    get 'search/index'
+  end
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"
   }
@@ -19,10 +22,15 @@ Rails.application.routes.draw do
   }
 
   scope module: 'public' do
-    resources :communities, only: [:index, :show, :edit]
+    resources :communities, except: [:destroy] do
+      resources :topics, only: [:index, :show, :edit, :create, :update]
+      resource :group_users, only: [:create, :destroy]
+    end
     resources :posts, only: [:index, :show, :edit, :create, :update]
     resources :users, only: [:show, :edit, :update, :destroy]
-    resources :topics, only: [:index, :show, :edit, :create, :update]
+     # 検索
+    get 'search', to: 'search#index', as: :search
+
   end
 
 

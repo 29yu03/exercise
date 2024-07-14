@@ -1,6 +1,6 @@
 class Topic < ApplicationRecord
   belongs_to :user
-  belongs_to :community
+  has_many :community
 
   validates :title, presence: true
   validates :body, presence: true

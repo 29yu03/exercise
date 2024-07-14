@@ -64,6 +64,18 @@
             </li>
           <% end %>
         </ul>
+          <div class="ml-auto mb-2 d-flex justify-content-end">
+            <%= form_with url: search_path, method: :get, local: true, class: 'form-inline' do %>
+              <div class="input-group">
+                <%= text_field_tag :query, params[:query], placeholder: 'Search', class: 'form-control' %>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="submit">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            <% end %>
+          </div>
       </header>
 
       <%= yield %>
