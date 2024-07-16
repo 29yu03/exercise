@@ -1,8 +1,11 @@
 class Public::GroupUsersController < ApplicationController
+  before_action :authenticate_user!
+
   def create
-    # 自分のIDを持ったgroup_userを作成する。作成時にgroup_idカラムにグループ詳細ページのIDを保存する。
-    group_user = current_user.group_users.new(community_id: params[:community_id])
-    group_user.save
+    @community = Community.find(params[:community_id])
+    @permit = Permit.find(params[:permit_id])
+    @group_user = GroupUser.create(user_id: @permit.user_id, community_id: params[:community_id])
+    @permit.destroy #参加希望者リストから削除する
     redirect_to request.referer
   end
 

@@ -42,16 +42,19 @@
         <% end %>
       </div>
     </div>
-    <div class="col-5 px-5">
-      <div class="shadow p-3 bg-white" style="width: 500px; height: 700px; border-radius: 15px;">
-        記事
-        <br>keys<br>
-        false<br>
-        false<br>
-        keys<br>
-        false<br>
-        keys<br>
-        false<br>
+    <div class="col-5 px-4">
+      <div class="shadow px-3 bg-white" style="width: 500px; height: auto; border-radius: 15px; ">
+      　<% if @topics.present? %>
+          <% @topics.order(created_at: :desc).each do |topic| %>
+            <div class="border-bottom border-secondary pt-2">
+              <b><%= link_to topic.title, community_topic_path(topic.community, topic), style: "color: black;" %></b>
+              <p style="font-size: 13px;"><%= truncate(topic.body, length: 30, omission: '...') %></p>
+            </div>
+          <% end %>
+        <% else %>
+          <p>まだ記事はありません。</p>
+        <% end %>
+
       </div>
     </div>
   </div>

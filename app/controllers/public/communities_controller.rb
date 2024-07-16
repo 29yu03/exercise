@@ -1,4 +1,7 @@
 class Public::CommunitiesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy, :permits]
+
   def index
     @community = Community.new
     @communities = Community.all
@@ -7,7 +10,9 @@ class Public::CommunitiesController < ApplicationController
 
   def show
     @community = Community.find(params[:id])
-    @topics = @community.topics
+    @topics = @community.topics if @community.present?
+    @topic = Topic.new
+    @communities = Community.all
   end
 
   def edit
@@ -35,6 +40,17 @@ class Public::CommunitiesController < ApplicationController
     end
   end
 
+  def permits
+    @community = Community.find(params[:id])
+    @permits = @community.permits
+    #@permits = @community.permits.page(params[:page])
+  end
+
+  def member
+    @community = Community.find(params[:id])
+    #@permits = @community.permits.page(params[:page])
+  end
+
   private
 
   def community_params
@@ -44,7 +60,7 @@ class Public::CommunitiesController < ApplicationController
   def ensure_correct_user
     @community = Community.find(params[:id])
     unless @community.owner_id == current_user.id
-      redirect_to communities_path
+      redirect_to communities_path(@community), alert: "グループオーナーのみ編集が可能です"
     end
   end
 

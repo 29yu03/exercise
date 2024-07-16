@@ -23,14 +23,16 @@ Rails.application.routes.draw do
 
   scope module: 'public' do
     resources :communities, except: [:destroy] do
-      resources :topics, only: [:index, :show, :edit, :create, :update]
+      resources :topics, only: [:show, :edit, :create, :update]
+      resource :permits, only: [:index, :create, :destroy]
       resource :group_users, only: [:create, :destroy]
     end
     resources :posts, only: [:index, :show, :edit, :create, :update]
     resources :users, only: [:show, :edit, :update, :destroy]
      # 検索
     get 'search', to: 'search#index', as: :search
-
+    get "communities/:id/permits" => "communities#permits", as: :permits
+    get "communities/:id/member" => "communities#member", as: :member
   end
 
 

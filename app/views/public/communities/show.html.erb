@@ -1,43 +1,102 @@
-<div class='container'>
-<h2>Group Detail</h2>
-<table class="table table-hover table-inverse">
-  <thead>
-    <tr>
-      <th></th>
-      <th>グループ名</th>
-      <th>紹介文</th>
-      <th>メンバー</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr>
-        <td><%= @community.name %></td>
-        <td><%= @community.introduction %></td>
+<div class='container-field'>
+  <div class="row px-5 mx-5">
+    <div class="col-md-3 pl-5">
 
-        <td>
-            <!-- @groupは中間テーブルを挟んでusersテーブルを見ている。-->
-            <% @community.users.each do |member| %>
-              <li style="list-style: none;"><%= member.last_name %><%= member.first_name %></li>
-            <% end %>
-          </td>
-          <td>
-            <!-- @groupに紐づいたgroup_user（user_idカラムに自分のIDを持っている）があるかどうかを確かめる。-->
-            <% if @community.group_users.exists?(user_id: current_user.id) %>
-              <!-- group_usersコントローラーの#destroyアクションを発動　@groupからgroup_user(自分)を消す -->
-              <%= link_to 'グループから退会する', community_group_users_path(@community), method: :delete, class: "btn btn-sm btn-danger" %>
-            <% else %>
-            <!-- group_usersコントローラーの#createアクションを発動　@groupにgroup_user(自分)を追加する -->
-              <%= link_to 'グループに参加する', community_group_users_path(@community), method: :post, class: "btn btn-sm btn-success" %>
-            <% end %>
-          </td>
+<!-- コミュニティオーナ専用プルダウン -->
+      <% if @community.owner_id == current_user.id %>
+        <div class="dropdown my-4">
+          <button class="btn btn-sm btn-secondary dropdown-toggle"
+                  type="button" id="dropdownMenu1" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+            オーナー専用
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <%= link_to "承認待ち一覧", permits_path(@community),  class: "dropdown-item text-secondary bg-transparent" %>
+            <%= link_to 'グループ編集', edit_community_path(@community),  class: "dropdown-item text-success bg-transparent" %>
+            <%= link_to 'グループ削除', community_path(@community), method: :delete,  class: "dropdown-item text-danger bg-transparent", data: { confirm: "本当に削除しますか？" } %>
+          </div>
+        </div>
+      <% end %>
 
-        <% if @community.owner_id == current_user.id %>
-          <td>
-            <%= link_to 'Edit', edit_community_path(@community), class: "btn btn-sm btn-success" %>
-          </td>
-        <% end %>
-      </tr>
-  </tbody>
-</table>
+<!-- コミュニティ詳細 -->
+      <table>
+        <tbody class>
+            <tr>
+              <p style="font-size: 14px;"><%= @community.introduction %></p>
+            </tr>
+            <tr>
+              <td>
+                <%= link_to "メンバー一覧", member_path(@community),  class: "btn btn-md btn-success" %>
+              </td>
+              <td class="pl-3">
+                <% if @community.group_users.exists?(user_id: current_user.id) %>
+                  <%= link_to 'グループ退出', community_group_users_path(@community), method: :delete, class: "btn btn-md btn-danger", data: { confirm: "本当にグループを退出しますか？" } %>
+                <% elsif @community.permits.exists?(user_id: current_user.id) %>
+                  <%= link_to '申請取消', community_permits_path(@community), method: :delete, class: "btn btn-md btn-danger" %>
+                <% else %>
+                  <%= link_to '加入申請', community_permits_path(@community), method: :post, class: "btn btn-md btn-success" %>
+                <% end %>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+
+<!-- topic掲載フォーム -->
+      <div class="row justify-content-center">
+        <div class="col-md-12 justify-content-center mt-5">
+          <%= form_with model: [@community, @topic], url: community_topics_path(@community), local: true do |f| %>
+            <%= f.text_field :title, placeholder: "タイトル", class: "form-control" %>
+            <%= f.text_area :body, placeholder: "本文",  class: "form-control" %>
+            <div class="text-right mt-2">
+              <%= f.submit '掲載', class: "btn btn-primary btn-md" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+<!-- コミュニティ一覧 -->
+      <h5 class="text-center mt-5 py-2">コミュニティ一覧</h5>
+          <% @communities.each do |community| %>
+            <table class="table table-hover table-sm">
+              <tr>
+                <td>
+                  <%= link_to community.name, community_path(community), class: "text-dark" %>
+                </td>
+              </tr>
+            </table>
+
+          <% end %>
+      </div>
+
+<!-- トピック一覧 -->
+    <div class="col-md-9">
+      <h2 class="text-center mt-3 py-2">
+        <i class="fa-solid fa-dumbbell", style="transform: rotate(30deg);"></i>
+        <%= @community.name %> 掲示板
+        <i class="fa-solid fa-pencil"></i>
+      </h2>
+      <div class="row justify-content-center my-4">
+        <div class="col-10" style="background-color: white;">
+          <% if @community.topics.present? %>
+            <% @community.topics.order(created_at: :desc).each do |topic| %>
+              <div class="row px-1 py-3 border-bottom border-secondary bg-light">
+                <div class="col-md-1 px-2">
+                  <%= image_tag topic.user.get_profile_image(60, 60), style: "border-radius: 20px; width: 60px;" %>
+                </div>
+                <div class="col-md-10">
+                  <%= topic.user.last_name %><%= topic.user.first_name %>
+                  <%= link_to community_topic_path(topic), style: "color: black;" do %>
+                    <h5><b><%= topic.title %></b></h5>
+                  <% end %>
+                  <p><%= topic.body %></p>
+                </div>
+              </div>
+            <% end %>
+          <% else %>
+            <p class="text-center">トピックがありません。</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
