@@ -1,3 +1,4 @@
+<div class="container" style="background-color: #EFEFEF;">
  　<%= form_with model: @community, url: admin_communities_path do |f| %>
       <div class="row mb-5 d-flex align-items-center">
         <b class="mx-3"><%= f.label :コミュニティ名 %></b>
@@ -19,15 +20,17 @@
           <% @communities.each do |community| %>
             <tr>
               <td class="col-7">
+                <%= link_to admin_community_path(community), style: "color: black;" do %>
                 <%= community.name %>
+                <% end %>
               </td>
               <td class="col-5 pl-5">
-                <%= link_to "  編集する ", edit_admin_community_path(community.id), class: "btn btn-md btn-success" %>
+                <%= link_to "  編集 ", edit_admin_community_path(community.id), class: "btn btn-md btn-success" %>
+                <%= link_to "  削除 ", admin_community_path(community.id), class: "btn btn-danger", method: :delete, data: { confirm: '本当に削除しますか?' } %>
               </td>
             </tr>
           <% end %>
         </table>
       </div>
-    <div class="col"></div>
   </div>
 </div>

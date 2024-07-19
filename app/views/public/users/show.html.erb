@@ -1,4 +1,6 @@
 <div class="container pl-1" style="background-color: #EFEFEF;">
+
+<!-- ユーザー情報 -->
   <div class="row mr-5 py-5 px-5 border-bottom border-secondary" >
     <div class="p-2 bg-white" style="border-radius: 15px; display: flex; align-items: center; justify-content: center;">
       <%= image_tag @user.get_profile_image(170,170), width: 170, height: 170, style: "border-radius: 10px;" %>
@@ -6,9 +8,10 @@
     <div class="col py-3 text-center">
       <h1><%= @user.last_name %><%= @user.first_name %></h1>
       <h5 class="py-3 text-success"><%= @user.introduction %></h5>
-      <div class="">
+
+      <% if @user == current_user %>
         <%= link_to "プロフィールを編集", edit_user_path, class: "btn btn-secondary btn-sm" %>
-      </div>
+      <% end %>
     </div>
     <div class="col">
       <div class="row">
@@ -21,7 +24,10 @@
     </div>
   </div>
 
+<!-- ユーザー投稿・記事一覧 -->
   <div class="row my-5">
+
+    <!-- ユーザー投稿一覧 -->
     <div class="col-7">
       <div class="row">
         <% @posts.each do |post| %>
@@ -42,6 +48,8 @@
         <% end %>
       </div>
     </div>
+
+    <!-- ユーザー記事一覧 -->
     <div class="col-5 px-4">
       <div class="shadow px-3 bg-white" style="width: 500px; height: auto; border-radius: 15px; ">
       　<% if @topics.present? %>
@@ -54,8 +62,8 @@
         <% else %>
           <p>まだ記事はありません。</p>
         <% end %>
-
       </div>
     </div>
+
   </div>
 </div>

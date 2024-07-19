@@ -8,11 +8,19 @@ Rails.application.routes.draw do
   }
 
   namespace :admin do
-    resources :communities, only: [:index, :edit, :create, :update]
-    resources :posts, only: [:index, :show, :edit, :update]
-    resources :users, only: [:index, :show, :edit, :create, :update]
-    resources :topics, only: [:index, :edit, :create, :update]
+    resources :communities, only: [:index, :show, :edit, :create, :update, :destroy] do
+      resources :topics, only: [:show, :edit, :create, :update, :destroy] do
+        resources :comments, only: [:create, :destroy]
+      end
+      resource :permits, only: [:index, :create, :destroy]
+      resource :group_users, only: [:create, :destroy]
+
+    end
+    resources :posts, only: [:index, :show, :edit, :update, :destroy]
+    resources :users, only: [:index, :show, :edit, :create, :update, :destroy]
     get '/', to: 'homes#top', as: :top
+    get "communities/:id/member" => "communities#member", as: :member
+    get "communities/:id/permits" => "communities#permits", as: :permits
   end
 
 
@@ -23,11 +31,15 @@ Rails.application.routes.draw do
 
   scope module: 'public' do
     resources :communities, except: [:destroy] do
-      resources :topics, only: [:show, :edit, :create, :update]
+      resources :topics, only: [:show, :edit, :create, :update, :destroy] do
+        resources :comments, only: [:create, :destroy]
+      end
       resource :permits, only: [:index, :create, :destroy]
       resource :group_users, only: [:create, :destroy]
     end
-    resources :posts, only: [:index, :show, :edit, :create, :update]
+    resources :posts, only: [:index, :show, :edit, :create, :update, :destroy] do
+      resource :likes, only: [:create, :destroy]
+    end
     resources :users, only: [:show, :edit, :update, :destroy]
      # 検索
     get 'search', to: 'search#index', as: :search

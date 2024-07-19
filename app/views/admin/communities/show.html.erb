@@ -3,20 +3,20 @@
     <div class="col-md-3 pl-5">
 
 <!-- コミュニティオーナ専用プルダウン -->
-      <% if @community.owner_id == current_user.id %>
+
         <div class="dropdown my-4">
-          <button class="btn btn-sm btn-secondary dropdown-toggle"
+          <button class="btn btn-md btn-secondary dropdown-toggle"
                   type="button" id="dropdownMenu1" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">
-            オーナー専用
+            管理者用
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <%= link_to "承認待ち一覧", permits_path(@community),  class: "dropdown-item text-secondary bg-transparent" %>
-            <%= link_to 'グループ編集', edit_community_path(@community),  class: "dropdown-item text-success bg-transparent" %>
-            <%= link_to 'グループ削除', community_path(@community), method: :delete,  class: "dropdown-item text-danger bg-transparent", data: { confirm: "本当に削除しますか？" } %>
+            <%= link_to "承認待ち一覧", admin_permits_path(@community),  class: "dropdown-item text-secondary bg-transparent" %>
+            <%= link_to 'グループ編集', edit_admin_community_path(@community),  class: "dropdown-item text-success bg-transparent" %>
+            <%= link_to 'グループ削除', admin_community_path(@community), method: :delete,  class: "dropdown-item text-danger bg-transparent", data: { confirm: "本当に削除しますか？" } %>
           </div>
         </div>
-      <% end %>
+
 
 <!-- コミュニティ詳細 -->
       <table>
@@ -26,33 +26,12 @@
             </tr>
             <tr>
               <td>
-                <%= link_to "メンバー一覧", member_path(@community),  class: "btn btn-md btn-success" %>
-              </td>
-              <td class="pl-3">
-                <% if @community.group_users.exists?(user_id: current_user.id) %>
-                  <%= link_to 'グループ退出', community_group_users_path(@community), method: :delete, class: "btn btn-md btn-danger", data: { confirm: "本当にグループを退出しますか？" } %>
-                <% elsif @community.permits.exists?(user_id: current_user.id) %>
-                  <%= link_to '申請取消', community_permits_path(@community), method: :delete, class: "btn btn-md btn-danger" %>
-                <% else %>
-                  <%= link_to '加入申請', community_permits_path(@community), method: :post, class: "btn btn-md btn-success" %>
-                <% end %>
+                <%= link_to "メンバー一覧", admin_member_path(@community),  class: "btn btn-md btn-success" %>
               </td>
             </tr>
         </tbody>
       </table>
 
-<!-- topic掲載フォーム -->
-      <div class="row justify-content-center">
-        <div class="col-md-12 justify-content-center mt-5">
-          <%= form_with model: [@community, @topic], url: community_topics_path(@community), local: true do |f| %>
-            <%= f.text_field :title, placeholder: "タイトル", class: "form-control" %>
-            <%= f.text_area :body, placeholder: "本文",  class: "form-control" %>
-            <div class="text-right mt-2">
-              <%= f.submit '掲載', class: "btn btn-primary btn-md" %>
-            </div>
-          <% end %>
-        </div>
-      </div>
 
 <!-- コミュニティ一覧 -->
       <h5 class="text-center mt-5 py-2">コミュニティ一覧</h5>
@@ -60,7 +39,7 @@
             <table class="table table-hover table-sm">
               <tr>
                 <td>
-                  <%= link_to community.name, community_path(community), class: "text-dark" %>
+                  <%= link_to community.name, admin_community_path(community), class: "text-dark" %>
                 </td>
               </tr>
             </table>
@@ -87,7 +66,7 @@
                 </td>
                 <td class="col-11">
                   <b><%= topic.user.last_name %><%= topic.user.first_name %></b>
-                  <%= link_to community_topic_path(@community, topic), style: "color: black;" do %>
+                  <%= link_to admin_community_topic_path(@community, topic), style: "color: black;" do %>
                     <h5><b>【<%= topic.title %>】</b></h5>
                   <% end %>
                   <p><%= topic.body %></p>

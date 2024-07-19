@@ -1,2 +1,36 @@
-<h1>Admin::Posts#index</h1>
-<p>Find me in app/views/admin/posts/index.html.erb</p>
+<div class="container pl-1" style="background-color: #EFEFEF;">
+<h1>All Posts</h1>
+
+<table class="table">
+  <thead >
+    <tr>
+      <th>画像</th>
+      <th class="pl-5">タイトル<br>
+      サブタイトル</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td >
+          <% if post.image.attached? %>
+            <%= image_tag post.get_image, size: "200x125", alt: "Post Image" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', size: "200x125", alt: "No Image" %>
+          <% end %>
+        </td>
+        <td class="pl-5">
+          <%= link_to admin_post_path(post), style: "color: black;" do %>
+            <h4><b><%= post.title %></b></h4><br>
+          <% end %>
+            <%= post.subtitle %></td>
+        <td>
+          <%= link_to '編集', edit_admin_post_path(post), class: "btn btn-warning my-3" %>
+          <%= link_to '削除', admin_post_path(post), class: "btn btn-danger", method: :delete, data: { confirm: '本当に削除しますか?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

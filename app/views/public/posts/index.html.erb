@@ -1,87 +1,82 @@
 <div class="container" style="background-color: #EFEFEF;">
-<!-- index.html.erb -->
 
-<div class="my-5 text-center">
-  <% if user_signed_in? %>  <!-- もしログインしてなければアイコンを表示させない -->
-    <%= link_to "#newPostModal", data: { toggle: "modal" } do %>
-      <i class="far fa-square-plus", style="font-size: 100px; color: gray;"></i>
+<!-- 投稿用アイコン　※ログインしてなければ表示しない -->
+  <div class="my-5 text-center">
+    <% if user_signed_in? %>  <!-- もしログインしてなければアイコンを表示させない -->
+      <%= link_to "#newPostModal", data: { toggle: "modal" } do %>
+        <i class="far fa-square-plus", style="font-size: 100px; color: gray;"></i>
+      <% end %>
     <% end %>
-  <% end %>
 
-<!-- モーダル -->
-  <div class="modal fade" id="newPostModal" tabindex="-1" role="dialog" aria-labelledby="newPostModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-      <div class="modal-content" style="background-color: rgba(255, 255, 255, 0.9);">
-       <div class="modal-header text-center">
-        <h5 class="modal-title" id="newPostModalLabel">新規投稿</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body"> <!-- モーダルのボディ、ここにフォームを配置 -->
-          <%= form_with(model: @post, url: posts_path, local: true) do |f| %>
-            <div class="form-group">
-              <h4>画像</h4>
-              <%= f.file_field :image, class: "form-control-file", accept: "image/*" %>
-            </div>
-
-            <div class="form-group">
-              <h4>タイトル</h4>
-              <%= f.text_field :title, class: "form-control" %>
-            </div>
-
-            <div class="form-group">
-              <h4>サブタイトル</h4>
-              <%= f.text_field :subtitle, class: "form-control" %>
-            </div>
-
-            <div class="form-group">
-              <h4>本文</h4>
-              <%= f.text_area :body, class: "form-control" %>
-            </div>
-
-            <div class="form-group">
-              <%= f.submit '投稿', class: "btn btn-primary" %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<div class="row my-5">
-  <% @posts.each do |post| %>
-    <div class="col-md-4 d-flex justify-content-center mb-4">
-      <div class="card" style="width: 25rem; position: relative; padding-top: 65px;">
-        <!-- プロフィール画像をカードの左上に絶対位置で配置 -->
-        <div style="position: absolute; top: 5px; left: 10px;">
-          <%= image_tag post.user.get_profile_image(55,55), width: 55, height: 55, style: "border-radius: 50px;" %>
-          <span class="mt-4" style="font-size: 15px;">　<%= post.user.last_name %> <%= post.user.first_name %></span>
-        </div>
-        <% if post.image.attached? %>
-          <%= image_tag post.get_image, class: "card-img-top", alt: "Post Image" %>
-        <% else %>
-          <%= image_tag 'no_image.jpg', class: "card-img-top", size: "300x300", alt: "No Image" %>
-        <% end %>
-        <div class="card-body">
-          <div class="pb-4">♡ ♪</div>
-          <h5 class="card-title" style="font-size: 17px;"><%= post.title %></h5> <!-- タイトルの上部マージンを追加 -->
-          <p class="card-text" style="font-size: 13px;"><%= truncate(post.subtitle, length: 40, omission: '...') %></p>
-          <div class="text-center">
-            <%= link_to "続きを読む", post_path(post), class: "btn btn-outline-info" %>
+<!-- 投稿フォーム　※モーダル -->
+    <div class="modal fade" id="newPostModal" tabindex="-1" role="dialog" aria-labelledby="newPostModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content" style="background-color: rgba(255, 255, 255, 0.9);">
+          <div class="modal-header text-center">
+            <h5 class="modal-title" id="newPostModalLabel">新規投稿</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body"> <!-- モーダルのボディ、ここにフォームを配置 -->
+            <%= form_with(model: @post, url: posts_path, local: true) do |f| %>
+              <div class="form-group">
+                <h4>画像</h4>
+                <%= f.file_field :image, class: "form-control-file", accept: "image/*" %>
+              </div>
+              <div class="form-group">
+                <h4>タイトル</h4>
+                <%= f.text_field :title, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <h4>サブタイトル</h4>
+                <%= f.text_field :subtitle, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <h4>本文</h4>
+                <%= f.text_area :body, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.submit '投稿', class: "btn btn-primary" %>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
-  <% end %>
-</div>
+  </div>
 
 
+<!-- 投稿一覧　※カード -->
+  <div class="row my-5">
+    <% @posts.each do |post| %>
+      <div class="col-md-4 d-flex justify-content-center mb-4">
+        <div class="card" style="width: 25rem; position: relative; padding-top: 65px;">
 
+    <!-- 投稿ユーザー情報 -->
+          <div style="position: absolute; top: 5px; left: 10px;">　<!-- プロフィール画像をカードの左上に絶対位置で配置 -->
+            <%= image_tag post.user.get_profile_image(55,55), width: 55, height: 55, style: "border-radius: 50px;" %>
+            <span class="mt-4" style="font-size: 15px;">　<%= post.user.last_name %> <%= post.user.first_name %></span>
+          </div>
 
+    <!-- 投稿内容 -->
+          <% if post.image.attached? %>
+            <%= image_tag post.get_image, class: "card-img-top", alt: "Post Image" %>
+          <% else %>
+            <%= image_tag 'no_image.jpg', class: "card-img-top", size: "300x300", alt: "No Image" %>
+          <% end %>
+          <div class="card-body">
+            <h5 class="card-title" style="font-size: 17px;"><%= post.title %></h5> <!-- タイトルの上部マージンを追加 -->
+            <p class="card-text" style="font-size: 13px;"><%= truncate(post.subtitle, length: 40, omission: '...') %></p>
 
+            <div class="text-center">
+              <%= link_to "続きを読む", post_path(post), class: "btn btn-outline-info" %>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 
 </div>

@@ -1,0 +1,9 @@
+<% @topic.comments.each do |comment| %>
+  <%= comment.user.last_name %><%= comment.user.first_name %>
+  <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.body %>
+
+  <% if comment.user == current_user %>
+    <%= link_to "Destroy", community_topic_comment_path(@community, @topic, comment), class: "btn btn-danger", method: :delete, remote: true, data: {"turbolinks" => false} %>
+  <% end %>
+
+<% end %>

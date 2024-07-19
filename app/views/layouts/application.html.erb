@@ -25,7 +25,24 @@
         </div>
 
         <ul class="list-unstyled d-flex ml-5">
-          <% if user_signed_in? %>
+
+           <% if admin_signed_in? %>
+            <li class="mr-5 mt-3">
+              <%= link_to "トップ", admin_top_path, style: "color: #545454; font-weight: bold;"  %>
+            </li>
+            <li class="mr-5 mt-3">
+              <%= link_to "顧客一覧", admin_users_path, style: "color: #545454; font-weight: bold;"  %>
+            </li>
+            <li class="mr-5 mt-3">
+              <%= link_to "投稿一覧", admin_posts_path, style: "color: #545454; font-weight: bold;"  %>
+            </li>
+            <li class="mr-5 mt-3">
+              <%= link_to "コミュニティ一覧", admin_communities_path, style: "color: #545454; font-weight: bold;"  %>
+            </li>
+            <li class="mr-5 mt-3">
+              <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, style: "color: #545454; font-weight: bold;"  %>
+            </li>
+          <% elsif user_signed_in? %>
             <li class="mr-5 mt-3">
               <%= link_to 'ホーム', posts_path, style: "color: #545454; font-weight: bold;" %>
             </li>
@@ -77,7 +94,9 @@
             <% end %>
           </div>
       </header>
-
+      <% if admin_signed_in? %>
+        <h1 class="mt-3 text-center">【管理画面ページ】</h1>
+      <% end %>
       <%= yield %>
     </div>
     <footer>

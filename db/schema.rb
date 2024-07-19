@@ -53,8 +53,13 @@ ActiveRecord::Schema.define(version: 2024_07_16_015959) do
   end
 
   create_table "comments", force: :cascade do |t|
+    t.text "body", null: false
+    t.integer "user_id"
+    t.integer "topic_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["topic_id"], name: "index_comments_on_topic_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "communities", force: :cascade do |t|
@@ -140,6 +145,8 @@ ActiveRecord::Schema.define(version: 2024_07_16_015959) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "topics"
+  add_foreign_key "comments", "users"
   add_foreign_key "group_users", "communities"
   add_foreign_key "group_users", "users"
   add_foreign_key "permits", "communities"

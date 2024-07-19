@@ -19,6 +19,9 @@ class Public::TopicsController < ApplicationController
 
   def show
     @topic = Topic.find(params[:id])
+    @comment = Comment.new #コメントの新規作成
+    @comments = @topic.comments.includes(:user).order(created_at: :desc)
+    @community = @topic.community
   end
 
   def edit

@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :group_users, dependent: :destroy
   has_many :permits, dependent: :destroy
   has_many :ommunities, through: :group_users
+  has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
 
   has_one_attached :profile_image

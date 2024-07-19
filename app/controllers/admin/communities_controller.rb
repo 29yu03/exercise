@@ -1,4 +1,6 @@
 class Admin::CommunitiesController < ApplicationController
+  before_action :authenticate_admin!
+
   def index
     @community = Community.new
     @communities = Community.all
@@ -14,6 +16,13 @@ class Admin::CommunitiesController < ApplicationController
     end
   end
 
+  def show
+    @community = Community.find(params[:id])
+    @topics = @community.topics if @community.present?
+    @topic = Topic.new
+    @communities = Community.all
+  end
+
   def edit
     @community = Community.find(params[:id])
   end
@@ -25,6 +34,23 @@ class Admin::CommunitiesController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def permits
+    @community = Community.find(params[:id])
+    @permits = @community.permits
+    #@permits = @community.permits.page(params[:page])
+  end
+
+  def member
+    @community = Community.find(params[:id])
+    #@permits = @community.permits.page(params[:page])
+  end
+
+  def destroy
+    @community = Community.find(params[:id])
+    @community.destroy
+    redirect_to admin_communities_path
   end
 
   private

@@ -1,0 +1,16 @@
+<!-- レイアウト後で -->
+<%= image_tag @topic.user.get_profile_image(60, 60), style: "border-radius: 20px; width: 60px;" %>
+<div class="col-md-10">
+   <%= @topic.user.last_name %><%= @topic.user.first_name %>
+  <h5><b><%= @topic.title %></b></h5>
+  <p><%= @topic.body %></p>
+</div>
+<div id="comment_counter">
+  <%= render 'public/comments/count' %>
+</div>
+<div id="comments-section">
+  <%= render 'public/comments/comments' %>
+</div>
+<div>
+  <%= render 'public/comments/form' %>
+</div>

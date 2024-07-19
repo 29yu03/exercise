@@ -1,0 +1,30 @@
+<div class="container pl-1" style="background-color: #EFEFEF;">
+<h1>Edit Post</h1>
+
+<%= form_with(model: [:admin, @post], local: true) do |f| %>
+
+  <div>
+    <%= f.label :image %>
+    <%= f.file_field :image, class: "form-control-file", accept: "image/*" %>
+  </div>
+
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= f.label :subtitle %>
+    <%= f.text_area :subtitle, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= f.label :body %>
+    <%= f.text_area :body, class: "form-control" %>
+  </div>
+
+  <div class="mt-4">
+    <%= f.submit 'Update' %>
+  </div>
+<% end %>
+</div>
