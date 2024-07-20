@@ -1,2 +1,13 @@
-<h1>Admin::Topics#index</h1>
-<p>Find me in app/views/admin/topics/index.html.erb</p>
+<div style="height: 73%;">
+　<% if @topics.present? %>
+    <% @topics.each do |topic| %>
+      <div class="border-bottom py-2">
+        <h5><%= link_to topic.title, admin_community_topic_path(topic.community, topic), style: "color: black;" %></h5>
+        <p><%= topic.body %></p>
+        <p><%= topic.comments.count %></p>
+      </div>
+    <% end %>
+  <% else %>
+    <p>まだ記事はありません。</p>
+  <% end %>
+</div>

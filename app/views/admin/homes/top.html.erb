@@ -1,96 +1,56 @@
-<div class="d-flex justify-content-center">
-<div class="row p-5">
-<!-- ユーザー　-->
-  <div class="col">
-    <div class="shadow p-3 bg-white" style="width: 400px; height: 350px; border-radius: 15px;">
-      <h4 class="text-center mb-4">【最新ユーザー】</h4>
-      <div style="height: 73%;">
-        <% @users.each do |user| %>
-          <table class="border-bottom">
-            <tbody>
-            <tr>
-              <td class="col-6 py-2"><%= link_to admin_user_path(user), style: "color: black;" do %>
-                <b><%= user.last_name %><%= user.first_name %></b>
-              <% end %></td>
-              <td class="col-6 py-2"><%= user.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
-            </tr>
-            </tbody>
-          </table>
-        <% end %>
-      </div>
-      <div class="text-center">
-        <%= link_to "ユーザー一覧へ", admin_users_path(@user), class: "btn btn-info btn-sm" %>
-      </div>
-    </div>
-  </div>
+<div class="container px-2-1" style="background-color: #EFEFEF;">
 
-<!-- 投稿　-->
-  <div class="col">
-    <div class="shadow p-3 bg-white" style="width: 400px; height: 350px; border-radius: 15px;">
-      <h4 class="text-center mb-4">【最新投稿】</h4>
-      <div style="height: 73%;">
-        <% @posts.each do |post| %>
-          <div class="border-bottom">
-            <%= link_to admin_post_path(post), style: "color: black;" do %>
-              <b><%= post.title %></b>
-            <% end %>
-            <p style="font-size: 13px;">　<%= truncate(post.subtitle, length: 27, omission: '...') %></p>
-          </div>
-        <% end %>
-      </div>
-      <div class="text-center">
-        <%= link_to "投稿一覧へ", admin_posts_path(@post), class: "btn btn-info btn-sm" %>
-      </div>
-    </div>
-  </div>
-
-<!--　community -->
-  <div class="col">
-    <div class="shadow p-3 bg-white" style="width: 400px; height: 350px; border-radius: 15px;">
-      <h4 class="text-center mb-4">【最新コミュニティ】</h4>
-      <div style="height: 73%;">
-        <% @communities.each do |community| %>
-            <div class="border-bottom py-2">
-              <%= link_to community.name, admin_community_path(community), class: "text-dark" %>
-            </div>
-
-          <% end %>
-      </div>
-      <div class="text-center">
-        <%= link_to "投稿一覧へ", admin_posts_path(@post), class: "btn btn-info btn-sm" %>
-      </div>
-    </div>
-  </div>
-  </div>
- </div>
-
-  <div class="d-flex justify-content-center">
-    <div class="row">
-
-<!--　トピック -->
+    <div class="row m-5">
+  <!-- ユーザー　-->
       <div class="col">
       <div class="shadow p-3 bg-white" style="width: 400px; height: 350px; border-radius: 15px;">
-        <h4 class="text-center mb-1">【最新記事】</h4>
+        <h4 class="text-center mb-4">【最新ユーザー】</h4>
         <div style="height: 73%;">
-      　<% if @topics.present? %>
-          <% @topics.each do |topic| %>
-            <div class="border-bottom py-2">
-              <%= link_to topic.title, community_topic_path(topic.community, topic), style: "color: black;" %>
+          <% @users.each do |user| %>
+            <table class="border-bottom">
+              <tbody>
+              <tr>
+                <td class="col-6 py-2"><%= link_to admin_user_path(user), style: "color: black;" do %>
+                  <b><%= user.last_name %><%= user.first_name %></b>
+                <% end %></td>
+                <td class="col-6 py-2"><%= user.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+              </tr>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
+        <div class="text-center">
+          <%= link_to "ユーザー一覧へ", admin_users_path(@user), class: "btn btn-info btn-sm" %>
+        </div>
+      </div>
+    </div>
+
+  <!-- 投稿　-->
+      <div class="col">
+      <div class="shadow p-3 bg-white" style="width: 400px; height: 350px; border-radius: 15px;">
+        <h4 class="text-center mb-4">【最新投稿】</h4>
+        <div style="height: 73%;">
+          <% @posts.each do |post| %>
+            <div class="border-bottom">
+              <%= link_to admin_post_path(post), style: "color: black;" do %>
+                <b><%= post.title %></b>
+              <% end %>
+              <p style="font-size: 13px;">　<%= truncate(post.subtitle, length: 27, omission: '...') %></p>
             </div>
           <% end %>
-        <% else %>
-          <p>まだ記事はありません。</p>
-        <% end %>
         </div>
         <div class="text-center">
           <%= link_to "投稿一覧へ", admin_posts_path(@post), class: "btn btn-info btn-sm" %>
         </div>
       </div>
     </div>
+    </div>
 
-    <div class="col">
+    <div class="row m-5">
+  <!--　community -->
+      <div class="col">
       <div class="shadow p-3 bg-white" style="width: 400px; height: 350px; border-radius: 15px;">
-        <h4 class="text-center mb-4">【最新コメント】</h4>
+        <h4 class="text-center mb-3">【最新コミュニティ】</h4>
         <div style="height: 73%;">
           <% @communities.each do |community| %>
               <div class="border-bottom py-2">
@@ -100,9 +60,38 @@
             <% end %>
         </div>
         <div class="text-center">
-          <%= link_to "投稿一覧へ", admin_posts_path(@post), class: "btn btn-info btn-sm" %>
+          <%= link_to "コミュニティ一覧へ", admin_communities_path(@community), class: "btn btn-info btn-sm" %>
         </div>
       </div>
     </div>
-  </div>
+
+
+  <!--　トピック -->
+      <div class="col">
+        <div class="shadow p-3 bg-white" style="width: 400px; height: 350px; border-radius: 15px;">
+          <h4 class="text-center">【最新記事】</h4>
+          <div style="height: 73%;">
+        　<% if @topics.present? %>
+            <% @topics.each do |topic| %>
+              <div class="row border-bottom py-1">
+                <div class="col">
+                  <%= link_to topic.title, community_topic_path(topic.community, topic), style: "color: black;" %>
+                </div>
+                <div class="col">
+                  <i class="fa-regular fa-comment"></i> <%= topic.comments.count %>件
+                </div>
+              </div>
+            <% end %>
+          <% else %>
+            <p>まだ記事はありません。</p>
+          <% end %>
+          </div>
+          <div class="text-center">
+            <%= link_to "記事一覧へ", admin_topics_path(@topic), class: "btn btn-info btn-sm" %>
+          </div>
+        </div>
+      </div>
+
+    </div>
 </div>
+

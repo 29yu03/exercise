@@ -18,12 +18,12 @@
 </div>
 <div id="postCarousel" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
-    <% @posts.each_slice(5).with_index do |posts_slice, index| %>
+    <% @posts.each_slice(4).with_index do |posts_slice, index| %>
       <div class="carousel-item <%= index == 0 ? 'active' : '' %>">
         <div class="row">
           <% posts_slice.each do |post| %>
             <div class="col">
-              <div class="mt-5 mr-5 shadow p-3 mb-5 bg-white" style="width: 290px; height: 370px; border-radius: 35px;">
+              <div class="mt-5 mr-5 shadow p-3 mb-5 bg-white" style="width: 250px; height: 300px; border-radius: 35px;">
                 <!-- 投稿を表示 -->
                 <div class="row px-3" style="height: 20%;">
                   <%= link_to post_path(post), class: "text-dark" do %>
@@ -31,10 +31,10 @@
                   <% end %>
                 </div>
                 <div class="row px-3" style="height: 35%;">
-                  <h5 class="w-100" style="font-size: 14px;"><%= post.subtitle %></h5>
+                  <h5 class="w-100" style="font-size: 13px;"><%= truncate(post.subtitle, length: 40, omission: '...') %></h5>
                 </div>
                 <div class="row px-3" style="height: 20%;">
-                  いいね等
+                  ♡<%= post.likes.count %>いいね
                 </div>
                 <div class="row px-1" style="height: 25%;">
                   <div class="col-7 pt-2">
@@ -42,7 +42,7 @@
                     <p class="text-success pt-2", style="font-size: 12px;"><%= post.user.introduction %></p>
                   </div>
                   <div class="col-5">
-                    <%= image_tag post.user.get_profile_image(90, 90), style: "border-radius: 90px; width: 90px;" %>
+                    <%= image_tag post.user.get_profile_image(70, 70), style: "border-radius: 70px; width: 70px;" %>
                   </div>
                 </div>
               </div>
@@ -54,12 +54,15 @@
     <% end %>
   </div>
   <!-- 左右のナビゲーションボタン -->
+<div class="col">
   <%= link_to "#postCarousel", class: "carousel-control-prev", data: { slide: "prev" } do %>
     <div class="fa-3x" aria-hidden="true" style="color: black;"><i class="fa-solid fa-circle-chevron-left"></i></div>
   <% end %>
-
+   </div>
+  <div class="col">
   <%= link_to "#postCarousel", class: "carousel-control-next", data: { slide: "next" } do %>
     <div class="fa-3x" aria-hidden="true" style="color: black;"><i class="fa-solid fa-circle-chevron-right"></i></div>
   <% end %>
+  </div>
 </div>
 

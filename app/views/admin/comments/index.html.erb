@@ -1,0 +1,20 @@
+<table>
+  <thead>
+    <tr>
+      <th>コメント内容</th>
+      <th>コミュニティ</th>
+      <th>記事</th>
+      <th>詳細</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.comment %></td>
+        <td><%= comment.community.name %></td>
+        <td><%= comment.topic.title %></td>
+        <td><%= link_to '詳細', admin_community_topic_path(comment.community, comment.topic) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

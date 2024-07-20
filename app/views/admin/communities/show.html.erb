@@ -70,8 +70,8 @@
                     <h5><b>【<%= topic.title %>】</b></h5>
                   <% end %>
                   <p><%= topic.body %></p>
-                  <div id="comment_counter">
-                    <%= render 'public/comments/count' %>
+                  <div>
+                    <p><i class="fa-regular fa-comment"></i> <%= topic.comments.count %>件</p>
                   </div>
                 </td>
             <% end %>

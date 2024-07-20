@@ -1,7 +1,7 @@
 <div class="container" style="background-color: #EFEFEF;">
 
 <!-- 投稿用アイコン　※ログインしてなければ表示しない -->
-  <div class="my-5 text-center">
+  <div class="mt-5 text-center">
     <% if user_signed_in? %>  <!-- もしログインしてなければアイコンを表示させない -->
       <%= link_to "#newPostModal", data: { toggle: "modal" } do %>
         <i class="far fa-square-plus", style="font-size: 100px; color: gray;"></i>
@@ -48,7 +48,7 @@
 
 
 <!-- 投稿一覧　※カード -->
-  <div class="row my-5">
+  <div class="row mt-5">
     <% @posts.each do |post| %>
       <div class="col-md-4 d-flex justify-content-center mb-4">
         <div class="card" style="width: 25rem; position: relative; padding-top: 65px;">

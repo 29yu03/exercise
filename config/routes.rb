@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :communities, only: [:index, :show, :edit, :create, :update, :destroy] do
       resources :topics, only: [:show, :edit, :create, :update, :destroy] do
-        resources :comments, only: [:create, :destroy]
+        resources :comments, only: [:index, :updare, :destroy]
       end
       resource :permits, only: [:index, :create, :destroy]
       resource :group_users, only: [:create, :destroy]
@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     get '/', to: 'homes#top', as: :top
     get "communities/:id/member" => "communities#member", as: :member
     get "communities/:id/permits" => "communities#permits", as: :permits
+    get "topics" => "topics#index", as: :topics
   end
 
 

@@ -77,27 +77,32 @@
       </h2>
       <div class="row justify-content-center my-4">
         <div class="col-10" style="background-color: white;">
-          <% if @community.topics.present? %>
-            <% @community.topics.order(created_at: :desc).each do |topic| %>
-              <table width="100%">
-                <tbody>
-                <tr class="row px-1 border-bottom border-secondary bg-light">
-                <td class="col-1 p-2">
-                  <%= image_tag topic.user.get_profile_image(60, 60), style: "border-radius: 20px; width: 60px;" %>
-                </td>
-                <td class="col-11">
-                  <b><%= topic.user.last_name %><%= topic.user.first_name %></b>
-                  <%= link_to community_topic_path(@community, topic), style: "color: black;" do %>
-                    <h5><b>【<%= topic.title %>】</b></h5>
-                  <% end %>
-                  <p><%= topic.body %></p>
-                  <div id="comment_counter">
-                    <%= render 'public/comments/count' %>
-                  </div>
-                </td>
+          <% if @community.group_users.exists?(user_id: current_user.id) %>
+            <% if @community.topics.present? %>
+              <% @community.topics.order(created_at: :desc).each do |topic| %>
+                <table width="100%">
+                  <tbody>
+                  <tr class="row px-1 border-bottom border-secondary bg-light">
+                  <td class="col-1 p-2">
+                    <%= image_tag topic.user.get_profile_image(60, 60), style: "border-radius: 20px; width: 60px;" %>
+                  </td>
+                  <td class="col-11">
+                    <b><%= topic.user.last_name %><%= topic.user.first_name %></b>
+                    <%= link_to community_topic_path(@community, topic), style: "color: black;" do %>
+                      <h5><b>【<%= topic.title %>】</b></h5>
+                    <% end %>
+                    <p><%= topic.body %></p>
+                    <div>
+                      <p><i class="fa-regular fa-comment"></i> <%= topic.comments.count %>件</p>
+                    </div>
+                  </td>
+              <% end %>
+            <% else %>
+              <p class="text-center">トピックがありません。</p>
             <% end %>
           <% else %>
-            <p class="text-center">トピックがありません。</p>
+            <p class="text-center">グループメンバーではありません。<br>
+            グループ申請後、承認されると閲覧できるようになります。</p>
           <% end %>
           </tr>
           </tbody>
