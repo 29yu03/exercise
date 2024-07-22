@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     when Admin
       admin_top_path
     when User
-      root_path
+      user_path(resource)
     else
       root_path
     end

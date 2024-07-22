@@ -19,7 +19,7 @@
       </div>
       <div class="row">
         <% if @post.user == current_user %>
-          <%= link_to "編集する", edit_post_path, class: "btn btn-outline-info"  %>
+          <%= link_to "編集する", edit_post_path(@post), class: "btn btn-outline-info"  %>
           <%= link_to "削除", post_path(@post), method: :delete, "data-confirm" => "本当に削除しますか？" , class: "btn btn-outline-info" %>
         <% end %>
       </div>

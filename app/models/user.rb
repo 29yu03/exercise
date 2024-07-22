@@ -4,6 +4,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates :introduction, length: { maximum: 500 }, allow_blank: true
+  validates :last_name, :first_name, presence: true, length: { maximum: 50 }
+  validates :last_name_kana, :first_name_kana, presence: true, format: { with: /\A[\p{katakana}\u30fc]+\z/, message: "はカタカナで入力してください" }
+  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :telephone_number, presence: true, format: { with: /\A\d{10,11}\z/, message: "は10桁または11桁の数字で入力してください" }
+  validates :password, presence: true, length: { minimum: 6 }, confirmation: true, if: :password_required?
+
   has_many :posts, dependent: :destroy
   has_many :topics, dependent: :destroy
   has_many :group_users, dependent: :destroy

@@ -4,6 +4,11 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :likes, dependent: :destroy
 
+  validates :title, presence: { message: 'を入力してください' }, length: { maximum: 30, message: 'は30文字以内で入力してください' }
+  validates :subtitle, presence: { message: 'を入力してください' }, length: { maximum: 50, message: 'は50文字以内で入力してください' }
+  validates :body, presence: { message: 'を入力してください' }
+  validates :image, presence: { message: 'を選択してください' }
+
  def get_image
   unless image.attached?
     file_path = Rails.root.join('app/assets/images/sample-author1.jpg')

@@ -17,7 +17,12 @@ Rails.application.routes.draw do
 
     end
     resources :posts, only: [:index, :show, :edit, :update, :destroy]
-    resources :users, only: [:index, :show, :edit, :create, :update, :destroy]
+    resources :users, only: [:index, :show, :edit, :create, :update] do
+      member do
+        patch 'deactivate'
+        patch 'activate'  # 再アクティブ化用
+      end
+    end
     get '/', to: 'homes#top', as: :top
     get "communities/:id/member" => "communities#member", as: :member
     get "communities/:id/permits" => "communities#permits", as: :permits
@@ -41,7 +46,11 @@ Rails.application.routes.draw do
     resources :posts, only: [:index, :show, :edit, :create, :update, :destroy] do
       resource :likes, only: [:create, :destroy]
     end
-    resources :users, only: [:show, :edit, :update, :destroy]
+    resources :users, only: [:show, :edit, :update] do
+      member do
+        patch 'deactivate'
+      end
+    end
      # 検索
     get 'search', to: 'search#index', as: :search
     get "communities/:id/permits" => "communities#permits", as: :permits

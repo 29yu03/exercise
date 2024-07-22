@@ -25,10 +25,16 @@ class Admin::UsersController < ApplicationController
     end
   end
 
-  def destroy
+  def deactivate
     @user = User.find(params[:id])
     @user.update(is_active: false)
-    redirect_to admin_users_path, notice: 'ユーザーを削除しました。.'
+    redirect_to admin_users_path, notice: 'ユーザーを退会させました。'
+  end
+
+  def activate
+    @user = User.find(params[:id])
+    @user.update(is_active: true)
+    redirect_to admin_users_path, notice: 'ユーザーのアカウントを有効にしました。'
   end
 
   private
