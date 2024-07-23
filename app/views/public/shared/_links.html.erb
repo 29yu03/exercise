@@ -1,7 +1,12 @@
 <%- if controller_name != 'sessions' %>
-  <%= link_to "Log in", new_session_path(resource_name) %><br />
+  <div class="text-center">
+    <%= link_to "トレーニング IDをお持ちの方はこちら", new_session_path(resource_name) %><br />
+  </div>
 <% end %>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "Sign up", new_registration_path(resource_name) %><br />
+  <div class="mt-3 text-center">
+    <p>トレーニング IDをお持ちでないですか？</p>
+    <p style="font-size: 13px;"><%= link_to "作成はこちら ＞", new_registration_path(resource_name) %></p>
+  </div>
 <% end %>

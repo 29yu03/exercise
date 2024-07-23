@@ -1,10 +1,13 @@
 <div class='container'>
 <h1>コミュニティ一覧</h1>
-<ul>
-  <% @communities.each do |community| %>
-    <li><%= link_to community.name, community_path(community) %></li>
-  <% end %>
-</ul>
+  <div class="row p-5 mx-5 text-center">
+    <% @communities.each do |community| %>
+      <div class="col-md-3 py-2 border border-dark">
+        <b><%= link_to community.name, community_path(community), style: "color: #545454;" %></b>
+      </div>
+    <% end %>
+  </div>
+
 <%#= group.group_users.count %>
 
    <%= form_with model: @community, local: true do |f| %>

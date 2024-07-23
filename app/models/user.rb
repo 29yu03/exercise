@@ -24,12 +24,15 @@ class User < ApplicationRecord
 
   def get_profile_image(width, height)
     if profile_image.attached?
-      #profile_image
-      profile_image.variant(resize_to_limit: [width, height]).processed
+
+    profile_image
+      .variant(
+        resize_to_fill: [width, height],
+        gravity: "center"
+      ).processed
     else
       ActionController::Base.helpers.asset_path('no_image.jpg')
     end
   end
-
 
 end

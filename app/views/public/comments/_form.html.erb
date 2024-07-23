@@ -1,4 +1,8 @@
 <%= form_with(model: [@topic, @comment], url: community_topic_comments_path(@community, @topic), local: false ) do |f| %>
-    <%= f.text_area :body, rows: '5', placeholder: "コメントをここに", id: "comment_textarea" %>
-    <%= f.submit "送信する" %>
+  <%= f.text_area :body, rows: '3', placeholder: "コメントをここに", id: "comment_textarea", class: "form-control" %>
+  <div class="text-right">
+　  <button type="submit" style="border: none; background: none;">
+      <%= image_tag 'send.png', size: "25x25", alt: "送信する" %>
+    </button>
+  </div>
 <% end %>

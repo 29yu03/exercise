@@ -1,9 +1,15 @@
-<% @topic.comments.each do |comment| %>
-  <%= comment.user.last_name %><%= comment.user.first_name %>
-  <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.body %>
-
-  <% if comment.user == current_user %>
-    <%= link_to "Destroy", community_topic_comment_path(@community, @topic, comment), class: "btn btn-danger", method: :delete, remote: true, data: {"turbolinks" => false} %>
+<table>
+  <% @topic.comments.each do |comment| %>
+    <tbody class="border-bottom">
+      <tr>
+        <td class="col-3"><%= comment.created_at.strftime('%Y/%m/%d') %>　<%= comment.user.last_name %><%= comment.user.first_name %>　：</td>
+        <td class="col-7"><%= truncate(comment.body, length: 40, omission: '...') %></td>
+        <td class="col">
+        <% if comment.user == current_user %>
+          <%= link_to "Destroy", community_topic_comment_path(@community, @topic, comment), class: "btn btn-danger btn-sm", method: :delete, remote: true, data: {"turbolinks" => false} %>
+        <% end %>
+        </td>
+      </tr>
+    </tbody>
   <% end %>
-
-<% end %>
+</table>

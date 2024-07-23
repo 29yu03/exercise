@@ -1,16 +1,29 @@
-<!-- レイアウト後で -->
-<%= image_tag @topic.user.get_profile_image(60, 60), style: "border-radius: 20px; width: 60px;" %>
-<div class="col-md-10">
-   <%= @topic.user.last_name %><%= @topic.user.first_name %>
-  <h5><b><%= @topic.title %></b></h5>
-  <p><%= @topic.body %></p>
-</div>
-<div id="comment_counter">
-  <%= render 'public/comments/count' %>
-</div>
-<div id="comments-section">
-  <%= render 'public/comments/comments' %>
-</div>
-<div>
-  <%= render 'public/comments/form' %>
+<div class="container px-5">
+  <div class="row my-4 py-3 bg-white">
+    <table>
+      <tr>
+        <td class="px-3 text-center">
+          <%= image_tag @topic.user.get_profile_image(60, 60), style: "border-radius: 500px; width: 80px;" %><br>
+          <%= @topic.user.last_name %><%= @topic.user.first_name %>
+        </td>
+        <td class="px-3 pt-3">
+          <h5><b>【<%= @topic.title %>】</b></h5>
+          <p><%= @topic.body %></p>
+          <div id="comment_counter">
+            <%= render 'public/comments/count' %>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+<!--コメントセクション -->
+  <div id="comments-section">
+    <%= render 'public/comments/comments' %>
+  </div>
+
+<!-- フォームを画面下に固定 -->
+  <div class="fixed-bottom bg-white py-3 px-5">
+    <%= render 'public/comments/form' %>
+  </div>
 </div>
