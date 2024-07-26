@@ -1,20 +1,21 @@
 <div class="container", style="background-color: #EFEFEF;">
 <h1>Edit User</h1>
 
-<%= form_with(model: [:admin, @user], local: true) do |f| %>
-<div class="d-flex justify-content-center pb-5">
-  <div>
-  <% if @user.profile_image.attached? %>
-    <%= image_tag @user.get_profile_image(170,170), width: 150, height: 150, style: "border-radius: 10px;", id: "current_profile_image" %>
-  <% else %>
-    <%= image_tag 'no_image.jpg', width: 170, height: 170, style: "border-radius: 10px;", id: "current_profile_image" %>
-  <% end %>
-
-
-    <%= f.label :profile_image %>
-    <%= f.file_field :profile_image %>
+<%= form_with model: [:admin, @user] do |f| %>
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-2">
+      <div id="image_preview"></div>
+      <% if @user.profile_image.attached? %>
+        <%= image_tag @user.get_profile_image(170,170), width: 170, height: 170, style: "border-radius: 10px;", id: "current_profile_image" %>
+      <% else %>
+        <%= image_tag 'no_image.jpg', width: 170, height: 170, style: "border-radius: 10px;", id: "current_profile_image" %>
+      <% end %>
+    </div>
+    <div class="col-md-2 pt-5 mt-3">
+     <%= f.file_field :profile_image, id: "profile_image_input", placeholder: "プロフィール画像", accept: "image/*" %>
+    </div>
   </div>
-  </div>
+
   <div style="width: 70%;">
   <table class="w-100 mx-5">
     <tbody>
@@ -38,15 +39,15 @@
         <td><%= f.text_field :first_name, class: "form-control" %></td>
       </tr>
 
-      <tr>
-        <td class="col-3"><%= f.label :password %></td>
-        <td><%= f.password_field :password, class: "form-control" %></td>
+      <!--<tr>
+        <td class="col-3"><%#= f.label :password %></td>
+        <td><%#= f.password_field :password, class: "form-control" %></td>
       </tr>
 
       <tr>
-        <td class="col-3"><%= f.label :password_confirmation %></td>
-        <td><%= f.password_field :password_confirmation, class: "form-control" %></td>
-      </tr>
+        <td class="col-3"><%#= f.label :password_confirmation %></td>
+        <td><%#= f.password_field :password_confirmation, class: "form-control" %></td>
+      </tr> -->
     </tbody>
   </table>
   <div class="text-center mt-4"><%= f.submit 'Update User' %></div>

@@ -2,26 +2,20 @@
 
 <!-- ユーザー情報 -->
   <div class="row mr-5 py-5 px-5 border-bottom border-secondary" >
-    <div class="p-2 bg-white" style="border-radius: 15px; display: flex; align-items: center; justify-content: center;">
-      <%= image_tag @user.get_profile_image(170,170), width: 170, height: 170, style: "border-radius: 10px;" %>
+    <div class="col-2"></div>
+    <div class="col">
+      <%= image_tag @user.get_profile_image(250,250), width: 200, height: 200, style: "border-radius: 10px; border: 8px solid white;" %>
     </div>
     <div class="col py-3 text-center">
-      <h1><%= @user.last_name %><%= @user.first_name %></h1>
-      <h5 class="py-3 text-success"><%= @user.introduction %></h5>
+      <h1><%= @user.full_name %></h1>
+      <h5 class="py-3 text-success" style="font-size: 17px;"><%= @user.introduction %></h5>
 
       <% if @user == current_user %>
         <%= link_to "プロフィールを編集", edit_user_path, class: "btn btn-secondary btn-sm" %>
       <% end %>
     </div>
-    <div class="col">
-      <div class="row">
-        フォロワー
-        フォロー中
-      </div>
-      <div class="row">
-        DM
-      </div>
-    </div>
+    <div class="col-2"></div>
+
   </div>
 
 <!-- ユーザー投稿・記事一覧 -->

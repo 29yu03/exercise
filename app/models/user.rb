@@ -9,7 +9,7 @@ class User < ApplicationRecord
   validates :last_name_kana, :first_name_kana, presence: true, format: { with: /\A[\p{katakana}\u30fc]+\z/, message: "はカタカナで入力してください" }
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :telephone_number, presence: true, format: { with: /\A\d{10,11}\z/, message: "は10桁または11桁の数字で入力してください" }
-  validates :password, presence: true, length: { minimum: 6 }, confirmation: true, if: :password_required?
+  validates :password, presence: true, length: { minimum: 6 }, confirmation: true, :on => :create
 
   has_many :posts, dependent: :destroy
   has_many :topics, dependent: :destroy
@@ -33,6 +33,10 @@ class User < ApplicationRecord
     else
       ActionController::Base.helpers.asset_path('no_image.jpg')
     end
+  end
+
+  def full_name
+    "#{last_name} #{first_name}"
   end
 
 end

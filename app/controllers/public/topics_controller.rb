@@ -25,17 +25,24 @@ class Public::TopicsController < ApplicationController
   end
 
   def edit
-    @topic = Topic.find(params[:id])
+    @community = Community.find(params[:community_id])
+    @topic = @community.topics.find(params[:id])
+    unless @topic.user.id == current_user.id
+      redirect_to root_path
+    end
   end
 
   def update
-    @topic = Topic.find(params[:id])
+    @community = Community.find(params[:community_id])
+    @topic = @community.topics.find(params[:id])
     if @topic.update(topic_params)
-      flash[:notice] = "投稿が更新されました。"
-      redirect_to community_topic_path(@topic.community, @topic)
+      redirect_to community_topic_path(@community, @topic), notice: 'トピックが更新されました。'
     else
       flash[:error] = @topic.errors.full_messages.join(", ")
       render :edit
+    end
+    unless @topic.user.id == current_user.id
+      redirect_to root_path
     end
   end
 

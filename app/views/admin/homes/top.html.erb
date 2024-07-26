@@ -75,7 +75,7 @@
             <% @topics.each do |topic| %>
               <div class="row border-bottom py-1">
                 <div class="col">
-                  <%= link_to topic.title, community_topic_path(topic.community, topic), style: "color: black;" %>
+                  <%= link_to topic.title, admin_community_topic_path(topic.community, topic), style: "color: black;" %>
                 </div>
                 <div class="col">
                   <i class="fa-regular fa-comment"></i> <%= topic.comments.count %>件

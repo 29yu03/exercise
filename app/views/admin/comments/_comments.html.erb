@@ -5,11 +5,9 @@
         <td class="col-3 py-2"><%= comment.created_at.strftime('%Y/%m/%d') %> :　<%= comment.user.full_name %> <i class="fa-regular fa-comment-dots"></i></td>
         <td class="col-7"><%= truncate(comment.body, length: 40, omission: '...') %></td>
         <td class="col">
-        <% if comment.user == current_user %>
           <div id="comment_btn_<%= @topic.id %>">
-            <%= render "public/comments/delete_btn", topic: @topic, comment: comment %>
+            <%= render "admin/comments/delete_btn", topic: @topic, comment: comment %>
           </div>
-        <% end %>
         </td>
       </tr>
     </tbody>

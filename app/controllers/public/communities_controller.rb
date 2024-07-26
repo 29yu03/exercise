@@ -17,6 +17,9 @@ class Public::CommunitiesController < ApplicationController
 
   def edit
     @community = Community.find(params[:id])
+    unless @community.owner_id == current_user.id
+      redirect_to community_path
+    end
   end
 
   def create
@@ -37,6 +40,9 @@ class Public::CommunitiesController < ApplicationController
       redirect_to communities_path
     else
       render :edit
+    end
+    unless @community.owner_id == current_user.id
+      redirect_to community_path
     end
   end
 
@@ -59,9 +65,7 @@ class Public::CommunitiesController < ApplicationController
 
   def ensure_correct_user
     @community = Community.find(params[:id])
-    unless @community.owner_id == current_user.id
-      redirect_to communities_path(@community), alert: "グループオーナーのみ編集が可能です"
-    end
+
   end
 
 

@@ -1,4 +1,5 @@
 class Public::UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update]
   before_action :configure_password_length, only: [:edit, :update]
 
@@ -10,12 +11,17 @@ class Public::UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    @posts = @user.posts
-
+    unless @user.id == current_user.id
+      redirect_to root_path
+    end
+      @posts = @user.posts
   end
 
   def update
     @user = User.find(params[:id])
+    unless user.id == current_user.id
+      redirect_to root_path
+    end
     if @user.update(user_params)
       redirect_to user_path(@user), notice: "User was successfully updated."
     else

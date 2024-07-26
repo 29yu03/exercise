@@ -13,9 +13,12 @@ class Public::CommentsController < ApplicationController
   end
 
   def destroy
-    @topic = Topic.find(params[:topic_id])
+    @community = Community.find(params[:community_id])
+    @topic = @community.topics.find(params[:topic_id])
     @comment = @topic.comments.find(params[:id])
     @comment.destroy
+    flash.now[:notice] = "コメントを削除しました。"
+    redirect_to community_topic_path(@community, @topic)
   end
 
   private

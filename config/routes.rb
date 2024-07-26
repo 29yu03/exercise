@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'search/index'
+  end
   namespace :public do
     get 'search/index'
   end
@@ -23,6 +26,7 @@ Rails.application.routes.draw do
         patch 'activate'  # 再アクティブ化用
       end
     end
+    get 'search', to: 'search#index', as: :search
     get '/', to: 'homes#top', as: :top
     get "communities/:id/member" => "communities#member", as: :member
     get "communities/:id/permits" => "communities#permits", as: :permits
@@ -36,7 +40,7 @@ Rails.application.routes.draw do
   }
 
   scope module: 'public' do
-    resources :communities, except: [:destroy] do
+    resources :communities, only: [:index, :show, :edit, :create, :update, :destroy] do
       resources :topics, only: [:show, :edit, :create, :update, :destroy] do
         resources :comments, only: [:create, :destroy]
       end

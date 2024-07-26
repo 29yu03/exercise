@@ -1,2 +1,2 @@
-$("#like_btn_<%= @post.id %>").html('<%= j(render "public/likes/btn", post: @post) %>');
-$('#like-count').html('<%= j(@post.likes.count) %> Likes');
+$("#comment_btn_<%= @topic.id %>").html('<%= j(render "public/comments/delete_btn", topic: @topic) %>');
+$('#comment-count').html('<%= j(@topic.comments.count) %> Comments');

@@ -1,0 +1,27 @@
+<div class="container px-5">
+  <div class="row my-4 pt-3 bg-white">
+    <table>
+      <tr>
+        <td class="px-3 text-center">
+          <%= image_tag @topic.user.get_profile_image(200, 200), style: "border-radius: 500px; width: 80px;" %><br>
+          <%= @topic.user.full_name %><br>
+          <%= link_to "編集", edit_admin_community_topic_path(@community, @topic), class: "btn btn-info btn-sm mt-2"  %>
+        </td>
+        <td class="px-3 pt-3">
+          <h5><b>【<%= @topic.title %>】</b></h5>
+          <p><%= @topic.body %></p>
+          <div id="comment_counter">
+            <%= render 'public/comments/count' %>
+          </div>
+
+        </td>
+      </tr>
+    </table>
+  </div>
+  <p class="pl-3">コメント</p>
+
+<!--コメントセクション -->
+  <div id="comments-section">
+    <%= render 'admin/comments/comments' %>
+  </div>
+</div>

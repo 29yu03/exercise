@@ -1,0 +1,1 @@
+<%= link_to "削除", community_topic_comment_path(community_id: @community.id, topic_id: @topic.id, id: comment.id), class: "btn btn-danger btn-sm", method: :delete, remote: true, data: {"turbolinks" => false} %>

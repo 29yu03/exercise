@@ -23,17 +23,19 @@
                   <tbody>
                   <tr class="row px-1 border-bottom border-secondary bg-light">
                   <td class="col-1 p-2 text-center">
-                    <%= image_tag topic.user.get_profile_image(60, 60), style: "border-radius: 20px; width: 60px;" %><br>
-                    <b style="font-size: 9px;"><%= topic.user.last_name %><%= topic.user.first_name %></b>
+                    <%= link_to user_path(topic.user), style: "text-decoration: none;" do %>
+                      <%= image_tag topic.user.get_profile_image(60, 60), style: "border-radius: 20px; width: 60px;" %><br>
+                      <b style="font-size: 9px; color: black;"><%= topic.user.last_name %><%= topic.user.first_name %></b>
+                    <% end %>
                   </td>
                   <td class="col-11">
                     <%= link_to community_topic_path(@community, topic), style: "color: black;" do %>
-                      <h5><b>【<%= topic.title %>】</b></h5>
+                      <h5><b>【<%= topic.title %>】</b>
                     <% end %>
+                        <span style="font-size: 15px;"><i class="fa-regular fa-comment"></i> <%= topic.comments.count %>件</span>
+                      </h5>
+
                     <p><%= topic.body %></p>
-                    <div>
-                      <p><i class="fa-regular fa-comment"></i> <%= topic.comments.count %>件</p>
-                    </div>
                   </td>
               <% end %>
             <% else %>
@@ -48,7 +50,7 @@
           </table>
         </div>
       </div>
-      <!-- topic掲載フォーム -->
+<!-- topic掲載フォーム -->
     　<div class="fixed-bottom bg-white border border-secondary mx-5 mb-2  pl-5" style="z-index: 999; width: 70%; border-radius: 15px;">
         <% if @community.group_users.exists?(user_id: current_user.id) %>
           <div class="container pt-3">
@@ -92,9 +94,11 @@
 <!-- ボタン類 -->
       <table class="mt-3">
         <tr>
-          <td>
-            <%= link_to "メンバー一覧", member_path(@community),  class: "btn btn-md btn-success" %>
-          </td>
+          <% if @community.group_users.exists?(user_id: current_user.id) %>
+            <td>
+              <%= link_to "メンバー一覧", member_path(@community),  class: "btn btn-md btn-success" %>
+            </td>
+          <% end %>
           <td class="pl-3">
             <% if @community.group_users.exists?(user_id: current_user.id) %>
               <%= link_to 'グループ退出', community_group_users_path(@community, user_id: current_user.id), method: :delete, class: "btn btn-md btn-danger", data: { confirm: "本当にグループを退出しますか？" } %>

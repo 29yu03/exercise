@@ -9,6 +9,8 @@ class Post < ApplicationRecord
   validates :body, presence: { message: 'を入力してください' }
   validates :image, presence: { message: 'を選択してください' }
 
+  #scope :search, ->(query) { where('title LIKE ? OR body LIKE ?', "%#{query}%", "%#{query}%") }
+
   def get_image
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/sample-author1.jpg')

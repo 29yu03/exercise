@@ -1,4 +1,4 @@
-class Public::SearchController < ApplicationController
+class Admin::SearchController < ApplicationController
   def index
     #検索キーワード取得
     @query = params[:q]

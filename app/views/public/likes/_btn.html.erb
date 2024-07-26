@@ -1,4 +1,6 @@
-<% if post.like_by?(current_user) %>
+<!-- if A && B  = AかつBがtrueだった場合実行　Aが×ならBは実行すらされない-->
+<!-- A || B  = または -->
+<% if user_signed_in? && post.like_by?(current_user) %>
   <%= link_to post_likes_path(post), method: :delete, remote: true do %>
   ♥<%= post.likes.count %>いいね
   <% end %>
