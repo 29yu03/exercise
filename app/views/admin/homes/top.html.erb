@@ -47,7 +47,7 @@
     </div>
 
     <div class="row m-5">
-  <!--　community -->
+  <!--community -->
       <div class="col">
       <div class="shadow p-3 bg-white" style="width: 400px; height: 350px; border-radius: 15px;">
         <h4 class="text-center mb-3">【最新コミュニティ】</h4>
@@ -65,32 +65,36 @@
       </div>
     </div>
 
-
-  <!--　トピック -->
+  <!--トピック -->
       <div class="col">
         <div class="shadow p-3 bg-white" style="width: 400px; height: 350px; border-radius: 15px;">
           <h4 class="text-center">【最新記事】</h4>
           <div style="height: 73%;">
-        　<% if @topics.present? %>
-            <% @topics.each do |topic| %>
-              <div class="row border-bottom py-1">
-                <div class="col">
-                  <%= link_to topic.title, admin_community_topic_path(topic.community, topic), style: "color: black;" %>
+            <% if @topics.present? %>
+              <% @topics.each do |topic| %>
+                <div class="row border-bottom py-1">
+                  <div class="col">
+                    <% if topic.community %>
+                      <%= link_to topic.title, admin_community_topic_path(topic.community, topic), style: "color: black;" %>
+                    <% else %>
+                      <%= link_to topic.title, '#', style: "color: black;" %> <!-- リンクが無効な場合 -->
+                    <% end %>
+                  </div>
+                  <div class="col">
+                    <i class="fa-regular fa-comment"></i> <%= topic.comments.count %>件
+                  </div>
                 </div>
-                <div class="col">
-                  <i class="fa-regular fa-comment"></i> <%= topic.comments.count %>件
-                </div>
-              </div>
+              <% end %>
+            <% else %>
+              <p>まだ記事はありません。</p>
             <% end %>
-          <% else %>
-            <p>まだ記事はありません。</p>
-          <% end %>
           </div>
           <div class="text-center">
-            <%= link_to "記事一覧へ", admin_topics_path(@topic), class: "btn btn-info btn-sm" %>
+            <%= link_to "記事一覧へ", admin_topics_path, class: "btn btn-info btn-sm" %>
           </div>
         </div>
       </div>
+
 
     </div>
 </div>

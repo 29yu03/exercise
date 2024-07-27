@@ -6,6 +6,9 @@
         <b><%= link_to community.name, community_path(community), style: "color: #545454;" %></b>
       </div>
     <% end %>
+    <div class="d-flex justify-content-center pt-3">
+      <h5><%= paginate @communities %></h5>
+    </div>
   </div>
 
 <%#= group.group_users.count %>

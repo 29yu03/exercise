@@ -1,16 +1,18 @@
-<div class="container">
+<div class="container pl-1" style="background-color: #EFEFEF;">
   <div class="row m-5">
       <h4 style="background-color: #E6E6E6;">　コミュニティ編集　</h4>
   </div>
-    <%= form_with model: [:admin, @community], url: admin_community_path(@community), method: :patch do |f| %>
-      <div class="row mb-5 d-flex align-items-center">
-        <div class="mx-4"><%= f.label :コミュニティ名 %></div>
-        <div class="mx-5"><%= f.text_field :name, class: "community-edit-field" %></div>
-        <div class="mx-4">
-          <%= f.submit "変更を保存", class: "btn btn-success community_edit_btn" %>
-        </div>
-      </div>
-    <% end %>
-
-
-  </div>
+  <%= form_with model: [:admin, @community], url: admin_community_path(@community), method: :patch do |f| %>
+    <div>
+      <%= f.label :コミュニティ名 %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+    <div>
+      <%= f.label :コミュニティ紹介 %>
+      <%= f.text_area :introduction, class: "form-control", rows: 5 %>
+    </div>
+    <div class="m-5">
+      <%= f.submit "変更を保存", class: "btn btn-success community_edit_btn" %>
+    </div>
+  <% end %>
+</div>

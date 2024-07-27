@@ -3,15 +3,15 @@ class Admin::CommunitiesController < ApplicationController
 
   def index
     @community = Community.new
-    @communities = Community.all
+    @communities = Community.page(params[:page]).per(16)
   end
 
   def create
     @community = Community.new(admin_community_params)
-    @communities = Community.all
     if @community.save
       redirect_to admin_communities_path
     else
+      @communities = Community.page(params[:page]).per(16)
       render :index
     end
   end
