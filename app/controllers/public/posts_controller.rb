@@ -22,7 +22,7 @@ class Public::PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-     @posts = Post.page(params[:page]).per(10)
+    @posts = Post.page(params[:page]).per(10)
   end
 
   def edit

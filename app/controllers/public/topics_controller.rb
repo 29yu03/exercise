@@ -46,6 +46,12 @@ class Public::TopicsController < ApplicationController
     end
   end
 
+  def destroy
+    @topic = Topic.find(params[:id])
+    @topic.destroy
+    redirect_to community_path(current_user), notice: '投稿が削除されました。'
+  end
+
   private
 
   def find_community

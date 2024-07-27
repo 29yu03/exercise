@@ -1,15 +1,21 @@
 <div class="container px-5">
+  <div class="row mt-3">
+      <%= link_to community_path(@community), style:"font-size: 30px; color: #545454;" do %>
+        <i class="fa-solid fa-chevron-left"></i>
+      <% end %>
+    </div>
   <div class="row my-4 pt-3 bg-white">
     <table>
       <tr>
-        <td class="px-3 text-center">
+        <td class="col-2 px-4 text-center">
           <%= image_tag @topic.user.get_profile_image(200, 200), style: "border-radius: 500px; width: 80px;" %><br>
           <%= @topic.user.full_name %><br>
           <% if current_user == @topic.user %>
             <%= link_to "編集", edit_community_topic_path(@community, @topic), class: "btn btn-info btn-sm mt-2"  %>
+            <%= link_to "削除", community_topic_path(@community, @topic), method: :delete, "data-confirm" => "本当に削除しますか？" , class: "btn btn-danger btn-sm mt-2" %>
           <% end %>
         </td>
-        <td class="px-3 pt-3">
+        <td class="col-10 px-3 pt-3">
           <h5><b>【<%= @topic.title %>】</b></h5>
           <p><%= @topic.body %></p>
           <div id="comment_counter">

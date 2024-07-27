@@ -5,8 +5,8 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @posts = @user.posts
-    @topics = @user.topics if @user.present?
+    @posts = @user.posts.page(params[:page]).per(8)
+    @topics = @user.topics.page(params[:page]).per(20) if @user.present?
   end
 
   def edit

@@ -22,18 +22,18 @@
   <div class="row mt-5">
 
     <!-- ユーザー投稿一覧 -->
-    <div class="col-7">
+    <div class="col">
       <div class="row">
         <% @posts.each do |post| %>
           <div class="col mb-3">
-            <div class="shadow p-3 bg-white" style="width: 260px; height: 280px; border-radius: 15px;">
+            <div class="shadow p-3 bg-white" style="width: 250px; height: 290px; border-radius: 15px;">
               <% if post.image.attached? %>
                 <%= image_tag post.get_image, class: "card-img-top", alt: "Post Image", style: "height: 120px; object-fit: cover;" %>
               <% else %>
                 <%= image_tag 'no_image.jpg', class: "card-img-top", alt: "No Image", style: "height: 100px; object-fit: cover;" %>
               <% end %>
-              <p style="font-size: 13px;"><%= post.title %></p>
-              <p style="font-size: 10px;"><%= truncate(post.subtitle, length: 40, omission: '...') %></p>
+              <p class="pt-2" style="font-size: 13px; height: 15%;"><b><%= post.title %></b></p>
+              <p style="font-size: 10px; height: 12%;"><%= truncate(post.subtitle, length: 40, omission: '...') %></p>
               <div class="text-center pt-2">
                 <%= link_to "続きを読む", post_path(post), class: "btn btn-outline-info btn-sm" %>
               </div>
@@ -41,11 +41,15 @@
           </div>
         <% end %>
       </div>
+      <div class="d-flex justify-content-center pt-3">
+        <h5><%= paginate @posts %></h5>
+      </div>
     </div>
 
     <!-- ユーザー記事一覧 -->
-    <div class="col-5 px-4">
-      <div class="shadow px-3 bg-white" style="width: 500px; height: auto; border-radius: 15px; ">
+    <% if @user == current_user %>
+    <div class="col px-4">
+      <div class="shadow px-3 bg-white" style="width: 400px; height: auto; border-radius: 15px; ">
       　<% if @topics.present? %>
           <% @topics.order(created_at: :desc).each do |topic| %>
             <div class="border-bottom border-secondary pt-2">
@@ -57,7 +61,11 @@
           <p>まだ記事はありません。</p>
         <% end %>
       </div>
+      <div class="d-flex justify-content-center pt-3">
+        <h5><%= paginate @topics %></h5>
+      </div>
     </div>
+    <% end %>
 
   </div>
 </div>

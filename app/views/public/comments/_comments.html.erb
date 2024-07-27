@@ -2,8 +2,8 @@
   <% @comments.each do |comment| %>
     <tbody class="border-bottom">
       <tr>
-        <td class="col-3 py-2"><%= comment.created_at.strftime('%Y/%m/%d') %> :　<%= comment.user.full_name %> <i class="fa-regular fa-comment-dots"></i></td>
-        <td class="col-7"><%= truncate(comment.body, length: 40, omission: '...') %></td>
+        <td class="col-3"><%= comment.created_at.strftime('%Y/%m/%d') %> :　<%= comment.user.full_name %> <i class="fa-regular fa-comment-dots"></i></td>
+        <td class="col-7 py-2" style="font-size: 15px;"><%= truncate(comment.body, length: 60, omission: '...') %></td>
         <td class="col">
         <% if comment.user == current_user %>
           <div id="comment_btn_<%= @topic.id %>">

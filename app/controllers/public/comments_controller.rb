@@ -7,6 +7,7 @@ class Public::CommentsController < ApplicationController
     @comment.topic_id = @topic.id
     if @comment.save
       @new_comment = Comment.new
+      @comments = @topic.comments.includes(:user).order(created_at: :desc) # コメントリストを初期化
     else
       render 'topics/show'
     end

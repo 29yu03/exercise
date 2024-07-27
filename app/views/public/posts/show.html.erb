@@ -42,7 +42,7 @@
         <div class="row ml-3">
           <% if @post.user == current_user %>
             <%= link_to "編集する", edit_post_path(@post), class: "btn btn-outline-info"  %>
-            <%= link_to "削除", post_path(@post), method: :delete, "data-confirm" => "本当に削除しますか？" , class: "btn btn-outline-info" %>
+            <%= link_to "削除", post_path(@post), method: :delete, "data-confirm" => "本当に削除しますか？" , class: "btn btn-outline-danger" %>
           <% end %>
         </div>
 
@@ -62,12 +62,14 @@
     </div>
 
   <!-- いいね -->
-    <div class="col py-2 mb-2", id="like_btn_<%= @post.id %>" >
-      <%= render "public/likes/btn", post: @post %>
-    </div>
+    <% if user_signed_in? %>
+      <div class="col pt-2 mb-2", id="like_btn_<%= @post.id %>" >
+        <%= render "public/likes/btn", post: @post %>
+      </div>
+    <% end %>
 
   <!-- 投稿内容 -->
-    <div class="row px-3">
+    <div class="row p-3">
       <div class="col-12">
         <h2 class="pb-4"><b><%= @post.title %></b></h2>
         <h5><%= @post.subtitle %></h5>

@@ -2,7 +2,7 @@
   <div class="row">
 
 <!-- 画面右 -->
-<!-- トピック一覧 -->
+
     <div class="col-md-9">
       <h2 class="text-center mt-3 py-2">
         <i class="fa-solid fa-dumbbell", style="transform: rotate(30deg);"></i>
@@ -14,6 +14,7 @@
         <%= simple_format(@community.introduction) %>
       </div>
 
+<!-- トピック一覧 -->
       <div class="row justify-content-center my-4">
         <div class="col-10" style="background-color: white;">
           <% if @community.group_users.exists?(user_id: current_user.id) %>
@@ -25,17 +26,17 @@
                   <td class="col-1 p-2 text-center">
                     <%= link_to user_path(topic.user), style: "text-decoration: none;" do %>
                       <%= image_tag topic.user.get_profile_image(60, 60), style: "border-radius: 20px; width: 60px;" %><br>
-                      <b style="font-size: 9px; color: black;"><%= topic.user.last_name %><%= topic.user.first_name %></b>
+                      <b style="font-size: 9px; color: black;"><%= topic.user.full_name %></b>
                     <% end %>
                   </td>
-                  <td class="col-11">
+                  <td class="col-11 pt-2">
                     <%= link_to community_topic_path(@community, topic), style: "color: black;" do %>
-                      <h5><b>【<%= topic.title %>】</b>
+                      <h5 style="font-size: 17px;"><b>【<%= topic.title %>】</b>
                     <% end %>
                         <span style="font-size: 15px;"><i class="fa-regular fa-comment"></i> <%= topic.comments.count %>件</span>
                       </h5>
 
-                    <p><%= topic.body %></p>
+                    <p class="pl-3" style="font-size: 14px;"><%= topic.body %></p>
                   </td>
               <% end %>
             <% else %>

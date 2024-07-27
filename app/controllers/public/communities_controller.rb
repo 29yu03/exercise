@@ -1,6 +1,6 @@
 class Public::CommunitiesController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy, :permits]
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy, :permits, :member]
 
   def index
     @community = Community.new
@@ -16,7 +16,6 @@ class Public::CommunitiesController < ApplicationController
   end
 
   def edit
-    @community = Community.find(params[:id])
     unless @community.owner_id == current_user.id
       redirect_to community_path
     end
@@ -35,7 +34,6 @@ class Public::CommunitiesController < ApplicationController
   end
 
   def update
-    @community = Community.find(params[:id])
     if @community.update(community_params)
       redirect_to communities_path
     else
@@ -47,14 +45,17 @@ class Public::CommunitiesController < ApplicationController
   end
 
   def permits
-    @community = Community.find(params[:id])
     @permits = @community.permits
     #@permits = @community.permits.page(params[:page])
   end
 
   def member
-    @community = Community.find(params[:id])
     #@permits = @community.permits.page(params[:page])
+  end
+
+  def destroy
+    @community.destroy
+    redirect_to communities_path(current_user), notice: '投稿が削除されました。'
   end
 
   private
