@@ -1,8 +1,8 @@
 <div class="position-fixed top-0 end-0 p-3 ml-5" style="z-index: 1;">
-  <%= image_tag 'muscle.png', size: "600x600", class: "img-fluid" %>
+  <%= image_tag 'muscle.png', size: "800x800", class: "img-fluid" %>
 </div>
 
-<div class="row m-5">
+<div class="row m-5"  style="z-index: 10;">
   <div class="col"></div>
   <div class="col my-4">
     <h1 style="color: #545454; font-weight: bold; line-height: 1.4; font-size: 48px;">
@@ -16,53 +16,53 @@
   <h4 style="color: #545454; font-weight: bold;">
     <span style="color: black;">最新</span>の情報をチェック</h4>
 </div>
-<div id="postCarousel" class="carousel slide" data-ride="carousel">
+<div id="postCarousel" class="carousel slide ml-4" data-ride="carousel" style="z-index: 10;">
   <div class="carousel-inner">
-    <% @posts.each_slice(4).with_index do |posts_slice, index| %>
+    <% @posts.each_slice(5).with_index do |posts_slice, index| %>
       <div class="carousel-item <%= index == 0 ? 'active' : '' %>">
-        <div class="row">
+        <div class="row" id="carousel-items">
           <% posts_slice.each do |post| %>
             <div class="col">
-              <div class="mt-5 mr-5 shadow p-3 mb-5 bg-white" style="width: 250px; height: 300px; border-radius: 35px;">
+              <div class="mt-5 mr-5 shadow p-3 mb-5 bg-white" style="width: 230px; height: 280px; border-radius: 35px;">
                 <!-- 投稿を表示 -->
-                <div class="row px-3" style="height: 20%;">
+                <div class="row p-3" style="height: 25%;">
                   <%= link_to post_path(post), class: "text-dark" do %>
-                  <h5 class="w-100" style="font-size: 17px;"><b><%= post.title %></b></h5>
+                  <h5 class="w-100" style="font-size: 15px;"><b><%= post.title %></b></h5>
                   <% end %>
                 </div>
-                <div class="row px-3" style="height: 35%;">
-                  <h5 class="w-100" style="font-size: 13px;"><%= truncate(post.subtitle, length: 40, omission: '...') %></h5>
+                <div class="row px-3" style="height: 25%;">
+                  <h5 class="w-100" style="font-size: 12px;"><%= truncate(post.subtitle, length: 40, omission: '...') %></h5>
                 </div>
-                <div class="row px-3" style="height: 20%;">
-                  ♡<%= post.likes.count %>いいね
+                <div class="row px-3" style="height: 15%;">
+                  <i class="fa-solid fa-heart" style="color: #FF00A8;"></i><%= post.likes.count %>
                 </div>
-                <div class="row px-1" style="height: 25%;">
+                <div class="row px-1" style="height: 35%;">
                   <div class="col-7 pt-2">
-                      <b style="font-size: 18px;"><%= post.user.last_name %><%= post.user.first_name %></b>
-                    <p class="text-success pt-2", style="font-size: 12px;"><%= post.user.introduction %></p>
+                    <b style="font-size: 18px;"><%= post.user.full_name %></b>
+                    <p class="text-success pt-2" style="font-size: 11px;"><%= post.user.introduction %></p>
                   </div>
-                  <div class="col-5">
-                    <%= image_tag post.user.get_profile_image(70, 70), style: "border-radius: 70px; width: 70px;" %>
+                  <div class="col-5 pt-2">
+                    <%= image_tag post.user.get_profile_image(90, 90), style: "border-radius: 65px; width: 65px;" %>
                   </div>
                 </div>
               </div>
             </div>
-
           <% end %>
         </div>
       </div>
     <% end %>
   </div>
   <!-- 左右のナビゲーションボタン -->
-<div class="col">
-  <%= link_to "#postCarousel", class: "carousel-control-prev", data: { slide: "prev" } do %>
-    <div class="fa-3x" aria-hidden="true" style="color: black;"><i class="fa-solid fa-circle-chevron-left"></i></div>
-  <% end %>
-   </div>
-  <div class="col">
-  <%= link_to "#postCarousel", class: "carousel-control-next", data: { slide: "next" } do %>
-    <div class="fa-3x" aria-hidden="true" style="color: black;"><i class="fa-solid fa-circle-chevron-right"></i></div>
-  <% end %>
+  <div style="position: absolute; top: 50%; left: 4%; transform: translateY(-50%);">
+    <%= link_to "#postCarousel", class: "carousel-control-prev", data: { slide: "prev" } do %>
+      <div class="fa-3x" aria-hidden="true" style="color: black;"><i class="fa-solid fa-circle-chevron-left"></i></div>
+    <% end %>
+  </div>
+  <div style="position: absolute; top: 50%; right: 4%; transform: translateY(-50%);">
+    <%= link_to "#postCarousel", class: "carousel-control-next", data: { slide: "next" } do %>
+      <div class="fa-3x" aria-hidden="true" style="color: black;"><i class="fa-solid fa-circle-chevron-right"></i></div>
+    <% end %>
   </div>
 </div>
+
 

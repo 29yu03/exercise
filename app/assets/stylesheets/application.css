@@ -19,3 +19,8 @@
       top: 0;
       right: 0;
     }
+
+#carousel-items {
+ display: flex;
+ flex-wrap: nowrap;
+}

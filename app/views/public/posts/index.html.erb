@@ -76,9 +76,9 @@
             <%= image_tag 'no_image.jpg', class: "card-img-top", size: "300x300", alt: "No Image" %>
           <% end %>
           <div class="card-body">
-            <h5 class="card-title" style="font-size: 17px;"><%= post.title %></h5>
+            <h5 class="card-title" style="font-size: 17px; height: 20%;"><%= post.title %></h5>
             <p class="card-text" style="font-size: 13px;"><%= truncate(post.subtitle, length: 40, omission: '...') %></p>
-            <div class="text-center">
+            <div class="text-center" style="height: 20%;">
               <%= link_to "続きを読む", post_path(post), class: "btn btn-outline-info" %>
             </div>
           </div>
@@ -86,5 +86,9 @@
       </div>
     <% end %>
   </div>
+  <div class="d-flex justify-content-center pt-3">
+    <h5><%= paginate @posts %></h5>
+  </div>
+
 
 </div>

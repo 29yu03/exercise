@@ -4,15 +4,15 @@ class Public::CommunitiesController < ApplicationController
 
   def index
     @community = Community.new
-    @communities = Community.all
+    @communities = Community.page(params[:page]).per(16)
     #@community_topics = @topics.page(params[:page])
   end
 
   def show
     @community = Community.find(params[:id])
-    @topics = @community.topics if @community.present?
+    @topics = @community.topics.page(params[:page]).per(15) if @community.present?
     @topic = Topic.new
-    @communities = Community.all
+    @communities = Community.page(params[:page]).per(10)
   end
 
   def edit
