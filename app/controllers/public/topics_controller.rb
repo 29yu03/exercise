@@ -1,5 +1,5 @@
 class Public::TopicsController < ApplicationController
-  before_action :find_community, only: [:create]
+  before_action :find_community, only: [:create, :destroy]
 
   def create
     @topic = Topic.new(topic_params)
@@ -49,7 +49,7 @@ class Public::TopicsController < ApplicationController
   def destroy
     @topic = Topic.find(params[:id])
     @topic.destroy
-    redirect_to community_path(current_user), notice: '投稿が削除されました。'
+    redirect_to community_path(@community), notice: '投稿が削除されました。'
   end
 
   private
