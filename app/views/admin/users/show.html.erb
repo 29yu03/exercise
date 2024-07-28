@@ -1,10 +1,10 @@
 <div class="container pl-1" style="background-color: #EFEFEF;">
 
-<!-- ユーザー情報 -->
-  <div class="row mr-5 py-5 px-5 border-bottom border-secondary" >
+  <!-- ユーザー情報 -->
+  <div class="row mr-5 py-5 px-5 border-bottom border-secondary">
     <div class="col-2"></div>
     <div class="col">
-      <%= image_tag @user.get_profile_image(250,250), width: 200, height: 200, style: "border-radius: 10px; border: 8px solid white;" %>
+      <%= image_tag @user.get_profile_image(250, 250), width: 200, height: 200, style: "border-radius: 10px; border: 8px solid white;" %>
     </div>
     <div class="col py-3 text-center">
       <h1><%= @user.full_name %></h1>
@@ -12,10 +12,9 @@
       <%= link_to "プロフィールを編集", edit_admin_user_path, class: "btn btn-secondary btn-sm" %>
     </div>
     <div class="col-2"></div>
-
   </div>
 
-<!-- ユーザー投稿・記事一覧 -->
+  <!-- ユーザー投稿・記事一覧 -->
   <div class="row my-5">
 
     <!-- ユーザー投稿一覧 -->
@@ -24,13 +23,16 @@
         <% @posts.each do |post| %>
           <div class="col mb-3">
             <div class="shadow p-3 bg-white" style="width: 260px; height: 280px; border-radius: 15px;">
+              <!-- 画像 -->
               <% if post.image.attached? %>
                 <%= image_tag post.get_image, class: "card-img-top", alt: "Post Image", style: "height: 120px; object-fit: cover;" %>
               <% else %>
                 <%= image_tag 'no_image.jpg', class: "card-img-top", alt: "No Image", style: "height: 100px; object-fit: cover;" %>
               <% end %>
+              <!-- タイトル・サブタイトル -->
               <p style="font-size: 13px;"><%= post.title %></p>
               <p style="font-size: 10px;"><%= truncate(post.subtitle, length: 40, omission: '...') %></p>
+              <!-- 詳細リンク -->
               <div class="text-center pt-2">
                 <%= link_to "続きを読む", admin_post_path(post), class: "btn btn-outline-info btn-sm" %>
               </div>
@@ -42,11 +44,13 @@
 
     <!-- ユーザー記事一覧 -->
     <div class="col-5 px-4">
-      <div class="shadow px-3 bg-white" style="width: 500px; height: auto; border-radius: 15px; ">
-      　<% if @topics.present? %>
+      <div class="shadow px-3 bg-white" style="width: 500px; height: auto; border-radius: 15px;">
+        <% if @topics.present? %>
           <% @topics.order(created_at: :desc).each do |topic| %>
             <div class="border-bottom border-secondary pt-2">
+              <!-- 記事タイトル -->
               <b><%= link_to topic.title, community_topic_path(topic.community, topic), style: "color: black;" %></b>
+              <!-- 記事本文 -->
               <p style="font-size: 13px;"><%= truncate(topic.body, length: 30, omission: '...') %></p>
             </div>
           <% end %>

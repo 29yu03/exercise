@@ -1,11 +1,10 @@
 <div class='container-field'>
   <div class="row">
 
-<!-- 画面右 -->
-
+    <!-- 画面右 -->
     <div class="col-md-9">
       <h2 class="text-center mt-3 py-2">
-        <i class="fa-solid fa-dumbbell", style="transform: rotate(30deg);"></i>
+        <i class="fa-solid fa-dumbbell" style="transform: rotate(30deg);"></i>
         <%= @community.name %> 掲示板
         <i class="fa-solid fa-pencil"></i>
       </h2>
@@ -14,7 +13,7 @@
         <%= simple_format(@community.introduction) %>
       </div>
 
-<!-- トピック一覧 -->
+      <!-- トピック一覧 -->
       <div class="row justify-content-center my-4">
         <div class="col-10" style="background-color: white;">
           <% if @community.group_users.exists?(user_id: current_user.id) %>
@@ -22,40 +21,41 @@
               <% @community.topics.order(created_at: :desc).each do |topic| %>
                 <table width="100%">
                   <tbody>
-                  <tr class="row px-1 border-bottom border-secondary bg-light">
-                  <td class="col-1 p-2 text-center">
-                    <%= link_to user_path(topic.user), style: "text-decoration: none;" do %>
-                      <%= image_tag topic.user.get_profile_image(60, 60), style: "border-radius: 20px; width: 60px;" %><br>
-                      <b style="font-size: 9px; color: black;"><%= topic.user.full_name %></b>
-                    <% end %>
-                  </td>
-                  <td class="col-11 pt-2">
-                    <%= link_to community_topic_path(@community, topic), style: "color: black;" do %>
-                      <h5 style="font-size: 17px;"><b>【<%= topic.title %>】</b>
-                    <% end %>
-                        <span style="font-size: 15px;"><i class="fa-regular fa-comment"></i> <%= topic.comments.count %>件</span>
-                      </h5>
-
-                    <p class="pl-3" style="font-size: 14px;"><%= topic.body %></p>
-                  </td>
+                    <tr class="row px-1 border-bottom border-secondary bg-light">
+                      <td class="col-1 p-2 text-center">
+                        <%= link_to user_path(topic.user), style: "text-decoration: none;" do %>
+                          <%= image_tag topic.user.get_profile_image(60, 60), style: "border-radius: 20px; width: 60px;" %><br>
+                          <b style="font-size: 9px; color: black;"><%= topic.user.full_name %></b>
+                        <% end %>
+                      </td>
+                      <td class="col-11 pt-2">
+                        <%= link_to community_topic_path(@community, topic), style: "color: black;" do %>
+                          <h5 style="font-size: 17px;"><b>【<%= topic.title %>】</b></h5>
+                          <span style="font-size: 15px;">
+                            <i class="fa-regular fa-comment"></i> <%= topic.comments.count %>件
+                          </span>
+                        <% end %>
+                        <p class="pl-3" style="font-size: 14px;"><%= topic.body %></p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               <% end %>
             <% else %>
               <p class="text-center">トピックがありません。</p>
             <% end %>
           <% else %>
             <p class="text-center">グループメンバーではありません。<br>
-            グループ申請後、承認されると閲覧できるようになります。</p>
+              グループ申請後、承認されると閲覧できるようになります。</p>
           <% end %>
-          </tr>
-          </tbody>
-          </table>
         </div>
       </div>
       <div class="d-flex justify-content-center pt-3">
-          <h5><%= paginate @topics %></h5>
-        </div>
-<!-- topic掲載フォーム -->
-    　<div class="fixed-bottom bg-white border border-secondary mx-5 mb-2  pl-5" style="z-index: 999; width: 70%; border-radius: 15px;">
+        <h5><%= paginate @topics %></h5>
+      </div>
+
+      <!-- topic掲載フォーム -->
+      <div class="fixed-bottom bg-white border border-secondary mx-5 mb-2 pl-5" style="z-index: 999; width: 70%; border-radius: 15px;">
         <% if @community.group_users.exists?(user_id: current_user.id) %>
           <div class="container pt-3">
             <%= form_with model: [@community, @topic], url: community_topics_path(@community), local: true do |f| %>
@@ -68,41 +68,33 @@
                   <%= image_tag 'send.png', size: "25x25", alt: "送信する" %>
                 </button>
               </div>
-        <% end %>
+            <% end %>
           </div>
         <% end %>
-
-
       </div>
-
-
-
     </div>
-    <!-- 画面右 -->
+    <!-- 画面左 -->
     <div class="col-md-3 pl-5" style="background-color: #FFF3E4;">
-
-<!-- コミュニティオーナ専用プルダウン -->
+      <!-- コミュニティオーナ専用プルダウン -->
       <% if @community.owner_id == current_user.id %>
         <div class="dropdown my-4">
-          <button class="btn btn-sm btn-secondary dropdown-toggle"
-                  type="button" id="dropdownMenu1" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
+          <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             オーナー専用
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <%= link_to "承認待ち一覧", permits_path(@community),  class: "dropdown-item text-secondary bg-transparent" %>
-            <%= link_to 'グループ編集', edit_community_path(@community),  class: "dropdown-item text-success bg-transparent" %>
-            <%= link_to 'グループ削除', community_path(@community), method: :delete,  class: "dropdown-item text-danger bg-transparent", data: { confirm: "本当に削除しますか？" } %>
+            <%= link_to "承認待ち一覧", permits_path(@community), class: "dropdown-item text-secondary bg-transparent" %>
+            <%= link_to 'グループ編集', edit_community_path(@community), class: "dropdown-item text-success bg-transparent" %>
+            <%= link_to 'グループ削除', community_path(@community), method: :delete, class: "dropdown-item text-danger bg-transparent", data: { confirm: "本当に削除しますか？" } %>
           </div>
         </div>
       <% end %>
 
-<!-- ボタン類 -->
+      <!-- ボタン類 -->
       <table class="mt-3">
         <tr>
           <% if @community.group_users.exists?(user_id: current_user.id) %>
             <td>
-              <%= link_to "メンバー一覧", member_path(@community),  class: "btn btn-md btn-success" %>
+              <%= link_to "メンバー一覧", member_path(@community), class: "btn btn-md btn-success" %>
             </td>
           <% end %>
           <td class="pl-3">
@@ -117,20 +109,17 @@
         </tr>
       </table>
 
-
-<!-- コミュニティ一覧 -->
+      <!-- コミュニティ一覧 -->
       <h5 class="text-center mt-5 py-2">コミュニティ一覧</h5>
-          <% @communities.each do |community| %>
-            <table class="table table-hover table-sm">
-              <tr>
-                <td>
-                  <%= link_to community.name, community_path(community), class: "text-dark" %>
-                </td>
-              </tr>
-            </table>
-
-          <% end %>
-      </div>
-
+      <% @communities.each do |community| %>
+        <table class="table table-hover table-sm">
+          <tr>
+            <td>
+              <%= link_to community.name, community_path(community), class: "text-dark" %>
+            </td>
+          </tr>
+        </table>
+      <% end %>
+    </div>
   </div>
 </div>

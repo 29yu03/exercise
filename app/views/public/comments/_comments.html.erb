@@ -2,18 +2,26 @@
   <% @comments.each do |comment| %>
     <tbody class="border-bottom">
       <tr>
-        <td class="col-3"><%= comment.created_at.strftime('%Y/%m/%d') %> :
-        <%= link_to user_path(comment.user), style: "color: black;" do %>
-        <%= comment.user.full_name %>
-        <% end %>
-        <i class="fa-regular fa-comment-dots"></i></td>
-        <td class="col-7 py-2" style="font-size: 15px;"><%= truncate(comment.body, length: 60, omission: '...') %></td>
+        <td class="col-3">
+          <%= comment.created_at.strftime('%Y/%m/%d') %> :
+          <%= link_to user_path(comment.user), style: "color: black;" do %>
+            <%= comment.user.full_name %>
+          <% end %>
+          <i class="fa-regular fa-comment-dots"></i>
+        </td>
+
+        <!-- コメントの本文を表示。60文字を超える場合、省略記号を付けて切り捨て -->
+        <td class="col-7 py-2" style="font-size: 15px;">
+          <%= truncate(comment.body, length: 60, omission: '...') %>
+        </td>
+
+        <!-- 現在のユーザーがコメントの所有者である場合、削除ボタンを表示 -->
         <td class="col">
-        <% if comment.user == current_user %>
-          <div id="comment_btn_<%= @topic.id %>">
-            <%= render "public/comments/delete_btn", topic: @topic, comment: comment %>
-          </div>
-        <% end %>
+          <% if comment.user == current_user %>
+            <div id="comment_btn_<%= @topic.id %>">
+              <%= render "public/comments/delete_btn", topic: @topic, comment: comment %>
+            </div>
+          <% end %>
         </td>
       </tr>
     </tbody>

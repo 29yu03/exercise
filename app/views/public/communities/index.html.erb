@@ -1,31 +1,35 @@
 <div class='container'>
-<h1>コミュニティ一覧</h1>
+  <h1>コミュニティ一覧</h1>
   <div class="row p-5 mx-5 text-center">
     <% @communities.each do |community| %>
+      <!-- コミュニティのリンク -->
       <div class="col-md-3 py-2 border border-dark">
         <b><%= link_to community.name, community_path(community), style: "color: #545454;" %></b>
       </div>
     <% end %>
-    <div class="d-flex justify-content-center pt-3">
-      <h5><%= paginate @communities %></h5>
+  </div>
+
+  <!-- ページネーション -->
+  <div class="d-flex justify-content-center pt-3">
+    <h5><%= paginate @communities %></h5>
+  </div>
+
+  <!-- 新規コミュニティ作成フォーム -->
+  <%= form_with model: @community, local: true do |f| %>
+    <!-- グループ名入力 -->
+    <div class="form-group">
+      <%= f.label :グループ名 %>
+      <%= f.text_field :name, class: 'form-control' %>
     </div>
-  </div>
 
-<%#= group.group_users.count %>
+    <!-- 紹介文入力 -->
+    <div class="form-group">
+      <%= f.label :紹介文 %>
+      <%= f.text_area :introduction, class: 'form-control' %>
+    </div>
 
-   <%= form_with model: @community, local: true do |f| %>
-  <div class="form-group">
-    <%= f.label :グループ名 %>
-    <%= f.text_field :name, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :紹介文 %>
-    <%= f.text_area :introduction, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= f.submit class: 'btn btn-info' %>
-  </div>
-<% end %>
+    <div class="form-group">
+      <%= f.submit class: 'btn btn-info' %>
+    </div>
+  <% end %>
 </div>

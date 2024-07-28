@@ -19,6 +19,7 @@ class Post < ApplicationRecord
     image.variant(resize_to_fill: [300, 200])
   end
 
+  # 特定のユーザーが「いいね」しているかを確認するメソッド
   def like_by?(user)
     likes.exists?(user_id: user.id)
   end

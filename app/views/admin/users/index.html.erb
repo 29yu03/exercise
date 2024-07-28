@@ -1,6 +1,8 @@
 <div class="container" style="background-color: #EFEFEF;">
-  <h1>All Users</h1>
+  <!-- ヘッダー -->
+  <h1>ユーザー一覧</h1>
 
+  <!-- ユーザー一覧テーブル -->
   <table class="table">
     <thead>
       <tr>
@@ -13,13 +15,18 @@
     <tbody>
       <% @users.each do |user| %>
         <tr>
+          <!-- メールアドレス -->
           <td><%= user.email %></td>
+          <!-- 名前（リンク） -->
           <td>
             <%= link_to admin_user_path(user) do %>
               <%= user.full_name %>
             <% end %>
           </td>
+          <!-- 退会状況 -->
           <td><%= user.is_active ? 'アクティブ' : '退会済み' %></td>
+
+          <!-- アクションボタン -->
           <td>
             <%= link_to '編集', edit_admin_user_path(user), class:"btn btn-outline-dark btn-sm" %>
             <% if user.is_active %>

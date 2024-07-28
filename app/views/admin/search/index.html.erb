@@ -3,10 +3,12 @@
     <% if @query.present? %>
       <div class="col-12 col-md-10">
         <div class="py-3">
+          <!-- 検索結果タイトル -->
           <h5 class="text-center py-4 display-4 d-none d-md-block" style="color: #545454;">「<%= @query %>」の検索結果</h5>
           <h5 class="text-center py-4 d-block d-md-none" style="color: #545454;">「<%= @query %>」の検索結果</h5>
         </div>
 
+        <!-- タブメニュー -->
         <ul class="nav nav-tabs justify-content-center" id="searchResultTabs" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true" style="font-weight: bold; color: #545454;">投稿</a>
@@ -19,7 +21,9 @@
           </li>
         </ul>
 
+        <!-- タブコンテンツ -->
         <div class="tab-content p-4">
+          <!-- 投稿タブ -->
           <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
             <% if @results[:posts].any? %>
               <div class="table-responsive">
@@ -27,12 +31,17 @@
                   <% @results[:posts].each do |post| %>
                     <tr>
                       <td class="align-middle" style="width: 60px;">
+                        <!-- プロフィール画像 -->
                         <%= image_tag post.user.get_profile_image(55,55), width: 50, height: 50, style: "border-radius: 50px;" %>
                       </td>
                       <td class="align-middle">
+                        <!-- PC表示用タイトル -->
                         <h5 class="d-none d-md-block"><%= link_to post.title, admin_post_path(post) %></h5>
+                        <!-- PC表示用サブタイトル -->
                         <p class="d-none d-md-block mb-0" style="font-size: 11px;"><%= truncate(post.subtitle, length: 50, omission: '...') %></p>
+                        <!-- モバイル表示用タイトル -->
                         <p class="d-md-none" style="font-size: 11px;"><%= link_to post.title, admin_post_path(post) %></p>
+                        <!-- モバイル表示用サブタイトル -->
                         <p class="d-md-none mb-0" style="font-size: 9px;"><%= truncate(post.subtitle, length: 40, omission: '...') %></p>
                       </td>
                     </tr>
@@ -44,6 +53,7 @@
             <% end %>
           </div>
 
+          <!-- ユーザータブ -->
           <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab">
             <% if @results[:users].any? %>
               <div class="table-responsive">
@@ -51,12 +61,17 @@
                   <% @results[:users].each do |user| %>
                     <tr>
                       <td class="align-middle" style="width: 60px;">
+                        <!-- ユーザーのプロフィール画像 -->
                         <%= image_tag user.get_profile_image(100,100), width: 55, height: 55, style: "border-radius: 50px;" %>
                       </td>
                       <td class="align-middle">
+                        <!-- PC表示用ユーザー名 -->
                         <h5 class="d-none d-md-block"><%= link_to user.full_name, admin_user_path(user) %></h5>
+                        <!-- PC表示用紹介文 -->
                         <p class="d-none d-md-block mb-0" style="font-size: 11px;"><%= user.introduction %></p>
+                        <!-- モバイル表示用ユーザー名 -->
                         <p class="d-md-none" style="font-size: 11px;"><%= link_to user.full_name, admin_user_path(user) %></p>
+                        <!-- モバイル表示用紹介文 -->
                         <p class="d-md-none mb-0" style="font-size: 9px;"><%= user.introduction %></p>
                       </td>
                     </tr>
@@ -68,6 +83,7 @@
             <% end %>
           </div>
 
+          <!-- コミュニティタブ -->
           <div class="tab-pane fade" id="communities" role="tabpanel" aria-labelledby="communities-tab">
             <% if @results[:communities].any? %>
               <div class="table-responsive">
@@ -75,11 +91,15 @@
                   <% @results[:communities].each do |community| %>
                     <tr>
                       <td class="col-2 align-middle border-right">
+                        <!-- コミュニティ名（PC表示用） -->
                         <p class="d-none d-md-block"><%= link_to community.name, admin_community_path(community) %></p>
+                        <!-- コミュニティ名（モバイル表示用） -->
                         <p class="d-md-none" style="font-size: 9px;"><%= link_to community.name, admin_community_path(community) %></p>
                       </td>
                       <td class="col-10 align-middle">
+                        <!-- コミュニティ紹介文（PC表示用） -->
                         <p class="d-none d-md-block mb-0" style="font-size: 13px;"><%= truncate(community.introduction, length: 100, omission: '...') %></p>
+                        <!-- コミュニティ紹介文（モバイル表示用） -->
                         <p class="d-md-none mb-0" style="font-size: 9px;"><%= truncate(community.introduction, length: 40, omission: '...') %></p>
                       </td>
                     </tr>

@@ -15,7 +15,7 @@ class User < ApplicationRecord
   has_many :topics, dependent: :destroy
   has_many :group_users, dependent: :destroy
   has_many :permits, dependent: :destroy
-  has_many :ommunities, through: :group_users
+  has_many :communities, through: :group_users
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
 
@@ -35,6 +35,7 @@ class User < ApplicationRecord
     end
   end
 
+  #名前統合
   def full_name
     "#{last_name} #{first_name}"
   end

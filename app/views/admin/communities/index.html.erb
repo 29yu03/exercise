@@ -1,41 +1,45 @@
 <div class="container" style="background-color: #EFEFEF;">
- 　<%= form_with model: @community, url: admin_communities_path do |f| %>
-      <div class="row mb-5 d-flex align-items-center">
-        <b class="mx-3"><%= f.label :コミュニティ名 %></b>
-        <div class="mx-4"><%= f.text_field :name, placeholder: 'コミュニティ名' %></div>
-        <div class="mx-4"><%= f.submit " 新規登録 ", class: "btn btn-success btn-lg genre_btn" %></div>
-     </div>
-    <% end %>
-    <div class="row">
-      <div class="col-5">
-        <table class="table community-table ">
-          <thead>
-            <tr>
-              <th class='community-active'>
-                コミュニティ
-              </th>
-              <th class='table-active'></th>
-            </tr>
-          </thead>
+  <%= form_with model: @community, url: admin_communities_path do |f| %>
+    <div class="row mb-5 d-flex align-items-center">
+      <b class="mx-3"><%= f.label :コミュニティ名 %></b>
+      <div class="mx-4">
+        <%= f.text_field :name, placeholder: 'コミュニティ名', class: 'form-control' %>
+      </div>
+      <div class="mx-4">
+        <%= f.submit "新規登録", class: "btn btn-success btn-lg genre_btn" %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-12">
+      <table class="table community-table">
+        <thead>
+          <tr>
+            <th class='community-active'>コミュニティ</th>
+            <th class='table-active'></th>
+          </tr>
+        </thead>
+        <tbody>
           <% @communities.each do |community| %>
             <tr>
               <td class="col-7">
                 <%= link_to admin_community_path(community), style: "color: black;" do %>
-                <h5><b><%= community.name %></b></h5>
+                  <h5><b><%= community.name %></b></h5>
                 <% end %>
               </td>
               <td class="col-5 pl-5">
-                <%= link_to "  編集 ", edit_admin_community_path(community.id), class: "btn btn-md btn-success" %>
-                <%= link_to "  削除 ", admin_community_path(community.id), class: "btn btn-danger", method: :delete, data: { confirm: '本当に削除しますか?' } %>
+                <%= link_to "編集", edit_admin_community_path(community.id), class: "btn btn-md btn-success" %>
+                <%= link_to "削除", admin_community_path(community.id), class: "btn btn-danger", method: :delete, data: { confirm: '本当に削除しますか?' } %>
               </td>
             </tr>
           <% end %>
-        </table>
-      </div>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-      <div class="d-flex justify-content-center pt-3">
-        <%= paginate @communities %>
-      </div>
-
+  <div class="d-flex justify-content-center pt-3">
+    <%= paginate @communities %>
   </div>
 </div>

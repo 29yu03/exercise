@@ -1,15 +1,19 @@
 <div class='container'>
+  <!-- グループ作成フォーム -->
   <%= form_with model: community, local: true do |f| %>
+    <!-- グループ名入力欄 -->
     <div class="form-group">
       <%= f.label :グループ名 %>
       <%= f.text_field :name, class: 'form-control' %>
     </div>
 
+    <!-- 紹介文入力欄 -->
     <div class="form-group">
       <%= f.label :紹介文 %>
       <%= f.text_area :introduction, class: 'form-control' %>
     </div>
 
+    <!-- 送信ボタン -->
     <div class="form-group">
       <%= f.submit class: 'btn btn-info' %>
     </div>

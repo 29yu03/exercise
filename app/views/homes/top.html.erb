@@ -2,7 +2,7 @@
   <%= image_tag 'muscle.png', size: "800x800", class: "img-fluid" %>
 </div>
 
-<div class="row m-5"  style="z-index: 10;">
+<div class="row m-5" style="z-index: 10;">
   <div class="col"></div>
   <div class="col my-4">
     <h1 style="color: #545454; font-weight: bold; line-height: 1.4; font-size: 48px;">
@@ -14,8 +14,10 @@
 
 <div class="row pl-5 mx-5 pb-4">
   <h4 style="color: #545454; font-weight: bold;">
-    <span style="color: black;">最新</span>の情報をチェック</h4>
+    <span style="color: black;">最新</span>の情報をチェック
+  </h4>
 </div>
+
 <div id="postCarousel" class="carousel slide ml-4" data-ride="carousel" style="z-index: 10;">
   <div class="carousel-inner">
     <% @posts.each_slice(5).with_index do |posts_slice, index| %>
@@ -27,7 +29,7 @@
                 <!-- 投稿を表示 -->
                 <div class="row p-3" style="height: 25%;">
                   <%= link_to post_path(post), class: "text-dark" do %>
-                  <h5 class="w-100" style="font-size: 15px;"><b><%= post.title %></b></h5>
+                    <h5 class="w-100" style="font-size: 15px;"><b><%= post.title %></b></h5>
                   <% end %>
                 </div>
                 <div class="row px-3" style="height: 25%;">
@@ -52,6 +54,7 @@
       </div>
     <% end %>
   </div>
+
   <!-- 左右のナビゲーションボタン -->
   <div style="position: absolute; top: 50%; left: 4%; transform: translateY(-50%);">
     <%= link_to "#postCarousel", class: "carousel-control-prev", data: { slide: "prev" } do %>
