@@ -19,6 +19,7 @@ class Public::SearchController < ApplicationController
       @results[:communities] = Community.where('name LIKE ? OR introduction LIKE ?', "%#{@query}%", "%#{@query}%")
     end
 
+　  #検索結果を@results[]に格納してる為、@results内の各カテゴリに対してpageとperメソッドを使用。
     @results[:posts] = @results[:posts].page(params[:page]).per(10)
     @results[:users] = @results[:users].page(params[:page]).per(15)
     @results[:communities] = @results[:communities].page(params[:page]).per(16)

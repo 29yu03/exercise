@@ -1,7 +1,7 @@
 <div class="container pl-1" style="background-color: #EFEFEF;">
 
-<!-- ユーザー情報 -->
-  <div class="row mr-5 py-5 px-5 border-bottom border-secondary" >
+  <!-- ユーザー情報 -->
+  <div class="row mr-5 py-5 px-5 border-bottom border-secondary">
     <div class="col-2"></div>
     <div class="col">
       <%= image_tag @user.get_profile_image(250,250), width: 200, height: 200, style: "border-radius: 10px; border: 8px solid white;" %>
@@ -9,16 +9,14 @@
     <div class="col py-3 text-center">
       <h1><%= @user.full_name %></h1>
       <h5 class="py-3 text-success" style="font-size: 17px;"><%= @user.introduction %></h5>
-
       <% if @user == current_user %>
         <%= link_to "プロフィールを編集", edit_user_path, class: "btn btn-secondary btn-sm" %>
       <% end %>
     </div>
     <div class="col-2"></div>
-
   </div>
 
-<!-- ユーザー投稿・記事一覧 -->
+  <!-- ユーザー投稿・記事一覧 -->
   <div class="row mt-5">
 
     <!-- ユーザー投稿一覧 -->
@@ -48,24 +46,25 @@
 
     <!-- ユーザー記事一覧 -->
     <% if @user == current_user %>
-    <div class="col px-4">
-      <div class="shadow px-3 bg-white" style="width: 400px; height: auto; border-radius: 15px; ">
-      　<% if @topics.present? %>
-          <% @topics.order(created_at: :desc).each do |topic| %>
-            <div class="border-bottom border-secondary pt-2">
-              <b><%= link_to topic.title, community_topic_path(topic.community, topic), style: "color: black;" %></b>
-              <p style="font-size: 13px;"><%= truncate(topic.body, length: 30, omission: '...') %></p>
-            </div>
+      <div class="col px-4">
+        <div class="shadow px-3 bg-white" style="width: 400px; height: auto; border-radius: 15px;">
+          <% if @topics.present? %>
+            <% @topics.order(created_at: :desc).each do |topic| %>
+              <div class="border-bottom border-secondary pt-2">
+                <b><%= link_to topic.title, community_topic_path(topic.community, topic), style: "color: black;" %></b>
+                <p style="font-size: 13px;"><%= truncate(topic.body, length: 30, omission: '...') %></p>
+              </div>
+            <% end %>
+          <% else %>
+            <p>まだ記事はありません。</p>
           <% end %>
-        <% else %>
-          <p>まだ記事はありません。</p>
-        <% end %>
+        </div>
+        <div class="d-flex justify-content-center pt-3">
+          <h5><%= paginate @topics %></h5>
+        </div>
       </div>
-      <div class="d-flex justify-content-center pt-3">
-        <h5><%= paginate @topics %></h5>
-      </div>
-    </div>
     <% end %>
 
   </div>
 </div>
+

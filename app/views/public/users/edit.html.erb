@@ -1,70 +1,88 @@
 <div class="container" style="background-color: #EFEFEF;">
- <h2 class="text-center mt-5 mb-4">プロフィール編集</h2>
-<%= form_with model: @user do |f| %>
-  <div class="row justify-content-center mt-4">
-    <div class="col-md-2">
-      <div id="image_preview"></div>
-      <% if @user.profile_image.attached? %>
-        <%= image_tag @user.get_profile_image(170,170), width: 170, height: 170, style: "border-radius: 10px;", id: "current_profile_image" %>
-      <% else %>
-        <%= image_tag 'no_image.jpg', width: 170, height: 170, style: "border-radius: 10px;", id: "current_profile_image" %>
-      <% end %>
+  <h2 class="text-center mt-5 mb-4">プロフィール編集</h2>
+
+  <%= form_with model: @user do |f| %>
+    <!-- プロフィール画像の編集 -->
+    <div class="row justify-content-center mt-4">
+      <div class="col-md-2">
+        <div id="image_preview"></div>
+        <% if @user.profile_image.attached? %>
+          <%= image_tag @user.get_profile_image(170, 170), width: 170, height: 170, style: "border-radius: 10px;", id: "current_profile_image" %>
+        <% else %>
+          <%= image_tag 'no_image.jpg', width: 170, height: 170, style: "border-radius: 10px;", id: "current_profile_image" %>
+        <% end %>
+      </div>
+      <div class="col-md-2 pt-5 mt-3">
+        <%= f.file_field :profile_image, id: "profile_image_input", placeholder: "プロフィール画像", accept: "image/*" %>
+      </div>
     </div>
-    <div class="col-md-2 pt-5 mt-3">
-     <%= f.file_field :profile_image, id: "profile_image_input", placeholder: "プロフィール画像", accept: "image/*" %>
+
+    <!-- 紹介文の編集 -->
+    <div class="row justify-content-center mt-4">
+      <div class="col-md-5">
+        <%= f.text_field :introduction, autofocus: true, placeholder: "紹介文", class: "form-control" %>
+      </div>
     </div>
+
+    <!-- 名前の編集 -->
+    <div class="row justify-content-center mt-2">
+      <div class="col-md-2">
+        <%= f.label :last_name, "姓", class: "form-label" %>
+        <%= f.text_field :last_name, autofocus: true, placeholder: "姓", class: "form-control" %>
+      </div>
+      <div class="col-md-2">
+        <%= f.label :first_name, "名", class: "form-label" %>
+        <%= f.text_field :first_name, placeholder: "名", class: "form-control" %>
+      </div>
+    </div>
+
+    <!-- カナ名の編集 -->
+    <div class="row justify-content-center mt-2">
+      <div class="col-md-2">
+        <%= f.label :last_name_kana, "セイ", class: "form-label" %>
+        <%= f.text_field :last_name_kana, placeholder: "セイ", class: "form-control" %>
+      </div>
+      <div class="col-md-2">
+        <%= f.label :first_name_kana, "メイ", class: "form-label" %>
+        <%= f.text_field :first_name_kana, placeholder: "メイ", class: "form-control" %>
+      </div>
+    </div>
+
+    <!-- メールアドレスの編集 -->
+    <div class="row justify-content-center mt-4">
+      <div class="col-md-4">
+        <%= f.label :email, "メールアドレス", class: "form-label" %>
+        <%= f.email_field :email, placeholder: "メールアドレス", autocomplete: "email", class: "form-control" %>
+      </div>
+    </div>
+
+    <!-- 電話番号の編集 -->
+    <div class="row justify-content-center mt-2 my-3">
+      <div class="col-md-4">
+        <%= f.label :telephone_number, "電話番号", class: "form-label" %>
+        <%= f.text_field :telephone_number, placeholder: "電話番号", pattern: '\d{10,11}', class: "form-control" %>
+      </div>
+    </div>
+
+    <!-- 保存ボタン -->
+    <div class="row justify-content-center">
+      <div class="col-md-4 text-center">
+        <%= f.submit "変更を保存", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- 戻るリンク -->
+  <div class="row justify-content-center">
+      <div class="col-md-4">
+        <%= link_to '戻る', user_path, class: "btn btn-secondary mt-3" %>
+      </div>
   </div>
 
-  <div class="row justify-content-center mt-4">
-  　<div class="col-md-5">
-      <%= f.text_field :introduction, autofocus: true, placeholder: "紹介文", class: "form-control" %>
-    </div>
-  </div>
-
+  <!-- 退会ボタン -->
   <div class="row justify-content-center mt-2">
-  　<div class="col-md-2">
-      <%= f.label :last_name, "姓", class: "form-label" %>
-      <%= f.text_field :last_name, autofocus: true, placeholder: "姓", class: "form-control" %>
-    </div>
-    <div class="col-md-2">
-      <%= f.label :first_name, "名", class: "form-label" %>
-      <%= f.text_field :first_name, placeholder: "名", class: "form-control" %>
-    </div>
+      <div class="col-md-4">
+        <%= button_to "退会する", deactivate_user_path(@user), method: :patch, data: { confirm: "本当に退会しますか？" }, class: "btn btn-danger" %>
+      </div>
   </div>
-
-  <div class="row justify-content-center mt-2">
-    <div class="col-md-2">
-      <%= f.label :last_name_kana, "セイ", class: "form-label" %>
-      <%= f.text_field :last_name_kana, placeholder: "セイ", class: "form-control" %>
-    </div>
-    <div class="col-md-2">
-      <%= f.label :first_name_kana, "メイ", class: "form-label" %>
-      <%= f.text_field :first_name_kana, placeholder: "メイ", class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="row justify-content-center mt-4">
-    <div class="col-md-4">
-      <%= f.label :email, "メールアドレス", class: "form-label" %>
-      <%= f.email_field :email, placeholder: "メールアドレス", autocomplete: "email", class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="row justify-content-center mt-2 my-3">
-    <div class="col-md-4">
-      <%= f.label :telephone_number, "電話番号", class: "form-label" %>
-      <%= f.text_field :telephone_number, placeholder: "電話番号", pattern: '\d{10,11}', class: "form-control" %>
-    </div>
-  </div>
-  <div class="row justify-content-center py-5">
-    <div class="col-md-4 text-center">
-      <%= f.submit "変更を保存", class: "btn btn-primary" %>
-    </div>
-  </div>
-<% end %>
-
-<%= button_to "退会する", deactivate_user_path(@user), method: :patch, data: { confirm: "本当に退会しますか？" }, class: "btn btn-danger" %>
-
-<%= link_to 'Back', user_path %>
-
 </div>

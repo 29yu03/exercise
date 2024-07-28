@@ -3,10 +3,12 @@
     <% if @query.present? %>
       <div class="col-12 col-md-10">
         <div class="py-3">
+          <!-- 検索クエリに基づく結果の見出し -->
           <h5 class="text-center py-4 display-4 d-none d-md-block" style="color: #545454;">「<%= @query %>」の検索結果</h5>
           <h5 class="text-center py-4 d-block d-md-none" style="color: #545454;">「<%= @query %>」の検索結果</h5>
         </div>
 
+        <!-- タブナビゲーション -->
         <ul class="nav nav-tabs justify-content-center" id="searchResultTabs" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true" style="font-weight: bold; color: #545454;">投稿</a>
@@ -19,46 +21,52 @@
           </li>
         </ul>
 
-<!-- 投稿 -->
         <div class="tab-content p-4">
+          <!-- 投稿タブの内容 -->
           <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
             <% if @results[:posts].any? %>
               <div class="table-responsive">
                 <table class="table border-bottom">
                   <% @results[:posts].each do |post| %>
                     <tr>
+                      <!-- ユーザープロフィール画像 -->
                       <td class="align-middle" style="width: 60px;">
                         <%= image_tag post.user.get_profile_image(55,55), width: 50, height: 50, style: "border-radius: 50px;" %>
                       </td>
+                      <!-- 投稿タイトルとサブタイトル -->
                       <td class="align-middle">
-                      <h5 class="d-none d-md-block"><%= link_to post.title, post_path(post) %></h5>
-                      <p class="d-none d-md-block mb-0" style="font-size: 11px;"><%= truncate(post.subtitle, length: 50, omission: '...') %></p>
-                      <p class="d-md-none" style="font-size: 11px;"><%= link_to post.title, post_path(post) %></p>
-                      <p class="d-md-none mb-0" style="font-size: 9px;"><%= truncate(post.subtitle, length: 40, omission: '...') %></p>
-                    </td>
+                        <h5 class="d-none d-md-block"><%= link_to post.title, post_path(post) %></h5>
+                        <p class="d-none d-md-block mb-0" style="font-size: 11px;"><%= truncate(post.subtitle, length: 50, omission: '...') %></p>
+                        <p class="d-md-none" style="font-size: 11px;"><%= link_to post.title, post_path(post) %></p>
+                        <p class="d-md-none mb-0" style="font-size: 9px;"><%= truncate(post.subtitle, length: 40, omission: '...') %></p>
+                      </td>
                     </tr>
                   <% end %>
                 </table>
               </div>
             <% else %>
+              <!-- 投稿が見つからない場合のメッセージ -->
               <p class="text-center">投稿が見つかりませんでした。</p>
             <% end %>
 
+            <!-- ページネーション -->
             <div class="d-flex justify-content-center pt-3">
               <h5><%= paginate @results[:posts] %></h5>
             </div>
-
           </div>
 
+          <!-- ユーザータブの内容 -->
           <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab">
             <% if @results[:users].any? %>
               <div class="table-responsive">
                 <table class="table table-bottom">
                   <% @results[:users].each do |user| %>
                     <tr>
+                      <!-- ユーザープロフィール画像 -->
                       <td class="align-middle" style="width: 60px;">
                         <%= image_tag user.get_profile_image(100,100), width: 55, height: 55, style: "border-radius: 50px;" %>
                       </td>
+                      <!-- ユーザー名と紹介文 -->
                       <td class="align-middle">
                         <h5 class="d-none d-md-block"><%= link_to user.full_name, user_path(user) %></h5>
                         <p class="d-none d-md-block mb-0" style="font-size: 11px;"><%= user.introduction %></p>
@@ -70,25 +78,29 @@
                 </table>
               </div>
             <% else %>
+              <!-- ユーザーが見つからない場合のメッセージ -->
               <p class="text-center">ユーザーが見つかりませんでした。</p>
             <% end %>
 
+            <!-- ページネーション -->
             <div class="d-flex justify-content-center pt-3">
               <h5><%= paginate @results[:users] %></h5>
             </div>
-
           </div>
 
+          <!-- コミュニティタブの内容 -->
           <div class="tab-pane fade" id="communities" role="tabpanel" aria-labelledby="communities-tab">
             <% if @results[:communities].any? %>
               <div class="table-responsive">
                 <table class="table border-bottom">
                   <% @results[:communities].each do |community| %>
                     <tr>
+                      <!-- コミュニティ名 -->
                       <td class="col-2 align-middle border-right">
                         <p class="d-none d-md-block"><%= link_to community.name, community_path(community) %></p>
                         <p class="d-md-none" style="font-size: 9px;"><%= link_to community.name, community_path(community) %></p>
                       </td>
+                      <!-- コミュニティ紹介文 -->
                       <td class="col-10 align-middle">
                         <p class="d-none d-md-block mb-0" style="font-size: 13px;"><%= truncate(community.introduction, length: 100, omission: '...') %></p>
                         <p class="d-md-none mb-0" style="font-size: 9px;"><%= truncate(community.introduction, length: 40, omission: '...') %></p>
@@ -98,15 +110,15 @@
                 </table>
               </div>
             <% else %>
+              <!-- コミュニティが見つからない場合のメッセージ -->
               <p class="text-center">コミュニティが見つかりませんでした。</p>
             <% end %>
 
+            <!-- ページネーション -->
             <div class="d-flex justify-content-center pt-3">
               <h5><%= paginate @results[:communities] %></h5>
             </div>
-
           </div>
-
         </div>
       </div>
     <% end %>
