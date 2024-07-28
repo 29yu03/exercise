@@ -27,11 +27,18 @@
 ・家族の為の食事や、運動のアドバイスを見つけたい時<br>
 
 ## 設計書
-後ほど作成予定
-<!-- 【補足説明】 -->
-<!-- - テーマ提出時点では不要です。 -->
-<!-- - 当項目には「後ほど作成予定」と記載しましょう。 -->
-​
+【テーブル定義書】
+https://docs.google.com/spreadsheets/d/1-wy5-7MgaKD0DoGwajKRfPlZaefbKDdFH6PoFHffnAI/edit?usp=sharing
+
+【アプリケーション詳細設計書】
+https://docs.google.com/spreadsheets/d/12eATLq66jr9Cjyr-zCx3GS-az3hVrYDbsTIlJslaWc4/edit?usp=sharing
+
+【UI Flows図】
+https://drive.google.com/file/d/1GGkgLgfi7bgsxelDqXbVlx7A19XijK2i/view?usp=sharing
+
+【ER図】
+https://drive.google.com/file/d/1OPWiBwt1qQW3IbieIM9sKJXVymAt7hE3/view?usp=sharing
+
 ## 開発環境
 - OS：Linux(CentOS)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
@@ -42,7 +49,6 @@
 ## 使用素材
 サービス名：canva
 URL：https://www.canva.com/
-
 
  著作権を考慮し、架空のデータを扱う予定です
 なお今後、実在するデータを利用する際には、事前に著作権保持者と契約を結んだ上で利用します。
