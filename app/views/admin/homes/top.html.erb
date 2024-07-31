@@ -7,18 +7,20 @@
         <h4 class="text-center mb-4">【最新ユーザー】</h4>
         <div style="height: 73%;">
           <% @users.each do |user| %>
-            <table class="border-bottom">
-              <tbody>
-                <tr>
-                  <td class="col-6 py-2">
-                    <%= link_to admin_user_path(user), style: "color: black;" do %>
-                      <b><%= user.last_name %><%= user.first_name %></b>
-                    <% end %>
-                  </td>
-                  <td class="col-6 py-2"><%= user.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
-                </tr>
-              </tbody>
-            </table>
+            <% if user.is_active %>
+              <table class="border-bottom">
+                <tbody>
+                  <tr>
+                    <td class="col-6 py-2">
+                      <%= link_to admin_user_path(user), style: "color: black;" do %>
+                        <b><%= user.last_name %><%= user.first_name %></b>
+                      <% end %>
+                    </td>
+                    <td class="col-6 py-2"><%= user.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+                  </tr>
+                </tbody>
+              </table>
+            <% end %>
           <% end %>
         </div>
         <div class="text-center">
@@ -33,12 +35,14 @@
         <h4 class="text-center mb-4">【最新投稿】</h4>
         <div style="height: 73%;">
           <% @posts.each do |post| %>
-            <div class="border-bottom">
-              <%= link_to admin_post_path(post), style: "color: black;" do %>
-                <b><%= post.title %></b>
-              <% end %>
-              <p style="font-size: 13px;">　<%= truncate(post.subtitle, length: 27, omission: '...') %></p>
-            </div>
+            <% if post.user.is_active %>
+              <div class="border-bottom">
+                <%= link_to admin_post_path(post), style: "color: black;" do %>
+                  <b><%= post.title %></b>
+                <% end %>
+                <p style="font-size: 13px;">　<%= truncate(post.subtitle, length: 27, omission: '...') %></p>
+              </div>
+            <% end %>
           <% end %>
         </div>
         <div class="text-center">
@@ -74,14 +78,14 @@
           <% if @topics.present? %>
             <% @topics.each do |topic| %>
               <div class="row border-bottom py-1">
-                <div class="col">
+                <div class="col-7">
                   <% if topic.community %>
                     <%= link_to topic.title, admin_community_topic_path(topic.community, topic), style: "color: black;" %>
                   <% else %>
                     <%= link_to topic.title, '#', style: "color: black;" %> <!-- リンクが無効な場合 -->
                   <% end %>
                 </div>
-                <div class="col">
+                <div class="col-5">
                   <i class="fa-regular fa-comment"></i> <%= topic.comments.count %>件
                 </div>
               </div>

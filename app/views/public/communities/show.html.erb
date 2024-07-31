@@ -19,27 +19,29 @@
           <% if @community.group_users.exists?(user_id: current_user.id) %>
             <% if @community.topics.present? %>
               <% @community.topics.order(created_at: :desc).each do |topic| %>
-                <table width="100%">
-                  <tbody>
-                    <tr class="row px-1 border-bottom border-secondary bg-light">
-                      <td class="col-1 p-2 text-center">
-                        <%= link_to user_path(topic.user), style: "text-decoration: none;" do %>
-                          <%= image_tag topic.user.get_profile_image(60, 60), style: "border-radius: 20px; width: 60px;" %><br>
-                          <b style="font-size: 9px; color: black;"><%= topic.user.full_name %></b>
-                        <% end %>
-                      </td>
-                      <td class="col-11 pt-2">
-                        <%= link_to community_topic_path(@community, topic), style: "color: black;" do %>
-                          <h5 style="font-size: 17px;"><b>【<%= topic.title %>】</b></h5>
-                          <span style="font-size: 15px;">
-                            <i class="fa-regular fa-comment"></i> <%= topic.comments.count %>件
-                          </span>
-                        <% end %>
-                        <p class="pl-3" style="font-size: 14px;"><%= topic.body %></p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <% if topic.user.is_active %>
+                  <table width="100%">
+                    <tbody>
+                      <tr class="row px-1 border-bottom border-secondary bg-light">
+                        <td class="col-1 p-2 text-center">
+                          <%= link_to user_path(topic.user), style: "text-decoration: none;" do %>
+                            <%= image_tag topic.user.get_profile_image(60, 60), style: "border-radius: 20px; width: 60px;" %><br>
+                            <b style="font-size: 9px; color: black;"><%= topic.user.full_name %></b>
+                          <% end %>
+                        </td>
+                        <td class="col-11 pt-2">
+                          <%= link_to community_topic_path(@community, topic), style: "color: black;" do %>
+                            <h5 style="font-size: 17px;"><b>【<%= topic.title %>】</b></h5>
+                            <span style="font-size: 15px;">
+                              <i class="fa-regular fa-comment"></i> <%= topic.comments.count %>件
+                            </span>
+                          <% end %>
+                          <p class="pl-3" style="font-size: 14px;"><%= topic.body %></p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                <% end %>
               <% end %>
             <% else %>
               <p class="text-center">トピックがありません。</p>

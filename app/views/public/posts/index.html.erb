@@ -59,30 +59,32 @@
   <!-- 投稿一覧 ※カード -->
   <div class="row mt-5">
     <% @posts.each do |post| %>
-      <div class="col-md-4 d-flex justify-content-center mb-4">
-        <div class="card" style="width: 25rem; position: relative; padding-top: 65px;">
-          <!-- 投稿ユーザー情報 -->
-          <div style="position: absolute; top: 5px; left: 10px;"> <!-- プロフィール画像をカードの左上に絶対位置で配置 -->
-            <%= link_to user_path(post.user), style: "text-decoration: none;" do %>
-              <%= image_tag post.user.get_profile_image(105, 105), width: 55, height: 55, style: "border-radius: 50px;" %>
-              <span class="mt-4" style="color: black; font-size: 15px;"> <%= post.user.full_name %></span>
+      <% if post.user.is_active %>
+        <div class="col-md-4 d-flex justify-content-center mb-4">
+          <div class="card" style="width: 25rem; position: relative; padding-top: 65px;">
+            <!-- 投稿ユーザー情報 -->
+            <div style="position: absolute; top: 5px; left: 10px;"> <!-- プロフィール画像をカードの左上に絶対位置で配置 -->
+              <%= link_to user_path(post.user), style: "text-decoration: none;" do %>
+                <%= image_tag post.user.get_profile_image(105, 105), width: 55, height: 55, style: "border-radius: 50px;" %>
+                <span class="mt-4" style="color: black; font-size: 15px;"> <%= post.user.full_name %></span>
+              <% end %>
+            </div>
+            <!-- 投稿内容 -->
+            <% if post.image.attached? %>
+              <%= image_tag post.get_image, class: "card-img-top", alt: "Post Image" %>
+            <% else %>
+              <%= image_tag 'no_image.jpg', class: "card-img-top", size: "300x300", alt: "No Image" %>
             <% end %>
-          </div>
-          <!-- 投稿内容 -->
-          <% if post.image.attached? %>
-            <%= image_tag post.get_image, class: "card-img-top", alt: "Post Image" %>
-          <% else %>
-            <%= image_tag 'no_image.jpg', class: "card-img-top", size: "300x300", alt: "No Image" %>
-          <% end %>
-          <div class="card-body">
-            <h5 class="card-title" style="font-size: 17px; height: 20%;"><%= post.title %></h5>
-            <p class="card-text" style="font-size: 13px; height: 30%;"><%= truncate(post.subtitle, length: 40, omission: '...') %></p>
-            <div class="text-center" style="height: 20%;">
-              <%= link_to "続きを読む", post_path(post), class: "btn btn-outline-info" %>
+            <div class="card-body">
+              <h5 class="card-title" style="font-size: 17px; height: 20%;"><%= post.title %></h5>
+              <p class="card-text" style="font-size: 13px; height: 30%;"><%= truncate(post.subtitle, length: 40, omission: '...') %></p>
+              <div class="text-center" style="height: 20%;">
+                <%= link_to "続きを読む", post_path(post), class: "btn btn-outline-info" %>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
 
