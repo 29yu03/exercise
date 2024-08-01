@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
 
   has_one_attached :image
+  has_many :tags, dependent: :destroy
   belongs_to :user
   has_many :likes, dependent: :destroy
 

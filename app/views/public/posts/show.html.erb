@@ -32,6 +32,9 @@
       <div class="col pl-3">
         <% if @post.image.attached? %>
           <%= image_tag @post.image.variant(resize_to_fit: [680, nil]).processed, alt: "Post Image" %>
+          <% @post.tags.each do |tag| %>
+            <div class="label"><%= tag.name %></div>
+          <% end %>
         <% else %>
           <%= image_tag 'no_image.jpg', class: "card-img-top", size: "300x300", alt: "No Image" %>
         <% end %>
