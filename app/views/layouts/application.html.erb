@@ -17,8 +17,7 @@
 
       <div class="row py-3"></div>
 
-      <header class="navbar navbar-expand-md navbar-light bg-white" style="height: 60px; color: #545454; z-index: 1030;">
-        <div class="container">
+      <header class="navbar navbar-expand-md navbar-light bg-white px-5" style="color: #545454; z-index: 1030;">
 
            <!--アイコンのリンク設定 -->
           <% if admin_signed_in? %>
@@ -104,7 +103,6 @@
               </form>
             <% end %>
           </div>
-        </div>
       </header>
 
       <!-- 管理画面のみのメッセージ -->
@@ -113,16 +111,16 @@
       <% end %>
       <%= yield %>
 
-      <div class="row mx-5 mt-5 pt-5 px-5">
-        <div class="col pl-5 ml-5">
+<!-- フッター -->
+      <div class="row">
+        <div class="col pl-5 ml-5 footer-image">
           <%= image_tag 'fat.png', size: "55x55" %>
         </div>
-        <div class="col pr-5 mr-5 d-flex justify-content-end">
+        <div class="col pr-5 mr-5 d-flex justify-content-end footer-image">
           <%= image_tag 'slim.png', size: "55x55" %>
         </div>
       </div>
 
-       <!-- フッター -->
       <footer class="border-top border-secondary mt-auto">
         <div class="d-flex justify-content-center py-4">
           <%= link_to root_path, class: "logo" do %>

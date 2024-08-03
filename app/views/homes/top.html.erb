@@ -1,24 +1,32 @@
-<div class="position-fixed top-0 end-0 p-3 ml-5" style="z-index: 1;">
+<div class="muscle position-fixed top-0 end-0 p-3 ml-2" style="z-index: 1;">
   <%= image_tag 'muscle.png', size: "800x800", class: "img-fluid" %>
 </div>
 
-<div class="row m-5" style="z-index: 10;">
-  <div class="col"></div>
-  <div class="col my-4">
-    <h1 style="color: #545454; font-weight: bold; line-height: 1.4; font-size: 48px;">
+<div class="d-flex justify-content-end m-4" style="z-index: 10;">
+  <div class="my-4">
+    <h1 class="d-md-none" style="color: #545454; font-weight: bold; line-height: 1.4; font-size: 23px;">
+      運動を通じて新たな自分と<br>
+      出会える、コミュニティサイト
+    </h1>
+    <h1 class="d-none d-md-block" style="color: #545454; font-weight: bold; line-height: 1.4; font-size: 48px;">
       運動を通じて新たな自分と<br>
       出会える、コミュニティサイト
     </h1>
   </div>
 </div>
 
-<div class="row pl-5 mx-5 pb-4">
+<div class="d-md-none row  mx-4">
+  <h5 style="color: #545454; font-weight: bold;">
+    <span style="color: black;">最新</span>の情報をチェック
+  </h5>
+</div>
+<div class="d-none d-md-block row pl-5 mx-5 pb-4">
   <h4 style="color: #545454; font-weight: bold;">
     <span style="color: black;">最新</span>の情報をチェック
   </h4>
 </div>
 
-<div id="postCarousel" class="carousel slide ml-4" data-ride="carousel" style="z-index: 10;">
+<div id="postCarousel" class="d-none d-md-block carousel slide ml-4" data-ride="carousel" style="z-index: 10;">
   <div class="carousel-inner">
     <% @posts.each_slice(5).with_index do |posts_slice, index| %>
       <div class="carousel-item <%= index == 0 ? 'active' : '' %>">
@@ -66,6 +74,48 @@
       <div class="fa-3x" aria-hidden="true" style="color: black;"><i class="fa-solid fa-circle-chevron-right"></i></div>
     <% end %>
   </div>
+</div>
+
+<!-- スマホ画面 -->
+<div id="postCarousel" class="d-md-none carousel slide ml-4" data-ride="carousel" style="z-index: 10;">
+  <div class="carousel-inner">
+    <% @posts.each_slice(2).with_index do |posts_slice, index| %>
+      <div class="carousel-item <%= index == 0 ? 'active' : '' %>">
+        <div class="row px-2" id="carousel-items">
+          <% posts_slice.each do |post| %>
+            <div class="col">
+              <div class="mt-5 mr-3 shadow p-4 mb-5 bg-white" style="width: 165px; height: 200px; border-radius: 35px;">
+                <!-- 投稿を表示 -->
+                <div class="row px-2" style="height: 25%;">
+                  <%= link_to post_path(post), class: "text-dark" do %>
+                    <h5 class="w-100" style="font-size: 12px;"><b><%= post.title %></b></h5>
+                  <% end %>
+                </div>
+                <div class="row px-2" style="height: 22%;">
+                  <h5 class="w-100" style="font-size: 9px;"><%= truncate(post.subtitle, length: 30, omission: '...') %></h5>
+                </div>
+                <div class="row px-2" style="height: 10%;">
+                  <i class="fa-solid fa-heart" style="font-size: 10px; color: #FF00A8;"></i><%= post.likes.count %>
+                </div>
+                <div class="row" style="height: 40%;">
+                  <div class="col-7 pt-2">
+                    <b style="font-size: 11px;"><%= post.user.full_name %></b>
+                    <p class="text-success pt-2" style="font-size: 7px;"><%= post.user.introduction %></p>
+                  </div>
+                  <div class="col-5 pt-4">
+                    <%= image_tag post.user.get_profile_image(90, 90), style: "border-radius: 50px; width: 50px;" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- 左右のナビゲーションボタン -->
+
 </div>
 
 
