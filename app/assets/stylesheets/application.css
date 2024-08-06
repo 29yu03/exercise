@@ -66,6 +66,18 @@
   .icon-small {
    font-size: 15px;
   }
+
+  .post-title {
+   font-size: 20px;
+  }
+
+  .post-subtitle {
+    font-size: 12px;
+  }
+
+  .post-body {
+    font-size: 10px;
+  }
 }
 
 /* スマートフォンサイズ（425px）以下の際に適用される設定 */

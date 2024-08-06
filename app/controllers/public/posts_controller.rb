@@ -1,7 +1,7 @@
 class Public::PostsController < ApplicationController
   def index
     @post = Post.new
-    @posts = Post.page(params[:page]).per(12)
+    @posts = Post.order(created_at: :desc).page(params[:page]).per(12)
     @user = current_user
   end
 
