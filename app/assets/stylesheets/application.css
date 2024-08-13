@@ -52,7 +52,6 @@
     height: 15px;
   }
 
-  /* 画像のサイズや配置を調整する例 */
   .footer-image img {
     width: 45px;
     height: 45px;
@@ -76,6 +75,14 @@
   }
 
   .post-body {
+    font-size: 10px;
+  }
+
+  .user-show-name {
+    font-size: 19px;
+  }
+
+  .user-introduction {
     font-size: 10px;
   }
 }

@@ -2,18 +2,27 @@
 
   <!-- ユーザー情報 -->
   <div class="row mr-5 py-5 px-5 border-bottom border-secondary">
-    <div class="col-2"></div>
-    <div class="col">
+    <div class="col-2 d-none d-md-block"></div>
+    <div class="col d-none d-md-block">
       <%= image_tag @user.get_profile_image(250, 250), width: 200, height: 200, style: "border-radius: 10px; border: 8px solid white;" %>
     </div>
-    <div class="col py-3 text-center">
-      <h1><%= @user.full_name %></h1>
-      <h5 class="py-3 text-success" style="font-size: 17px;"><%= @user.introduction %></h5>
-      <% if @user == current_user %>
-        <%= link_to "プロフィールを編集", edit_user_path, class: "btn btn-secondary btn-sm" %>
-      <% end %>
+    <div class="col d-md-none">
+      <%= image_tag @user.get_profile_image(250, 250), width: 100, height: 100, style: "border-radius: 10px; border: 8px solid white;" %>
     </div>
-    <div class="col-2"></div>
+    <div class="col py-3 text-center">
+      <h1 class="user-show-name"><%= @user.full_name %></h1>
+      <h5 class="py-3 text-success user-introduction"><%= @user.introduction %></h5>
+      <% if @user == current_user %>
+        <div class="d-none d-md-block">
+          <%= link_to "プロフィール編集", edit_user_path, class: "btn btn-secondary btn-sm" %>
+        </div>
+        <div class="d-md-none">
+          <%= link_to "プロフィール編集", edit_user_path, class: "btn btn-secondary btn-sm", style: "font-size: 7px;" %>
+        </div>
+      <% end %>
+
+    </div>
+    <div class="col-1 d-none d-md-block"></div>
   </div>
 
   <!-- ユーザー投稿・記事一覧 -->
@@ -45,25 +54,27 @@
     </div>
 
     <!-- ユーザー記事一覧 -->
-    <div class="col">
-      <% if @topics.present? %>
-        <% @topics.order(created_at: :desc).each do |topic| %>
-          <div class="border-bottom border-secondary pt-2">
-            <% if topic.community.present? %>
-              <b><%= link_to topic.title, community_topic_path(topic.community, topic), style: "color: black;" %></b>
-            <% else %>
-              <b><%= topic.title %></b>
-            <% end %>
-            <p style="font-size: 13px;"><%= truncate(topic.body, length: 30, omission: '...') %></p>
-          </div>
+    <% if @user == current_user %>
+      <div class="col">
+        <% if @topics.present? %>
+          <% @topics.order(created_at: :desc).each do |topic| %>
+            <div class="border-bottom border-secondary pt-2">
+              <% if topic.community.present? %>
+                <b><%= link_to topic.title, community_topic_path(topic.community, topic), style: "color: black;" %></b>
+              <% else %>
+                <b><%= topic.title %></b>
+              <% end %>
+              <p style="font-size: 13px;"><%= truncate(topic.body, length: 30, omission: '...') %></p>
+            </div>
+          <% end %>
+        <% else %>
+          <p>トピックがありません。</p>
         <% end %>
-      <% else %>
-        <p>トピックがありません。</p>
-      <% end %>
-      <div class="d-flex justify-content-center pt-3">
-        <h5><%= paginate @topics %></h5>
+        <div class="d-flex justify-content-center pt-3">
+          <h5><%= paginate @topics %></h5>
+        </div>
       </div>
-    </div>
+    <% end %>
 
   </div>
 </div>
