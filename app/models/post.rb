@@ -5,10 +5,10 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :likes, dependent: :destroy
 
+  validates :image, presence: { message: 'を選択してください' }
   validates :title, presence: { message: 'を入力してください' }, length: { maximum: 30, message: 'は30文字以内で入力してください' }
   validates :subtitle, presence: { message: 'を入力してください' }, length: { maximum: 100, message: 'は50文字以内で入力してください' }
   validates :body, presence: { message: 'を入力してください' }
-  validates :image, presence: { message: 'を選択してください' }
 
   #scope :search, ->(query) { where('title LIKE ? OR body LIKE ?', "%#{query}%", "%#{query}%") }
 
