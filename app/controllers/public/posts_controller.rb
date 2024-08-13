@@ -7,8 +7,11 @@ class Public::PostsController < ApplicationController
 
    def create
     @post = Post.new(post_params)
-    tags = Vision.get_image_data(post_params[:image])
     @post.user_id = current_user.id
+
+    if post_params[:image].present?
+      tags = Vision.get_image_data(post_params[:image])
+    end
 
     if @post.save
       flash[:notice] = "投稿が作成されました。"
@@ -17,7 +20,7 @@ class Public::PostsController < ApplicationController
       end
       redirect_to posts_path
     else
-      @posts = Post.all
+      @posts = Post.order(created_at: :desc).page(params[:page]).per(12)
       @user = current_user
       render :index
     end
