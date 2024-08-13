@@ -19,9 +19,14 @@
           <td><%= user.email %></td>
           <!-- 名前（リンク） -->
           <td>
-            <%= link_to admin_user_path(user) do %>
+            <% if user.is_active %>
+              <%= link_to admin_user_path(user) do %>
+                <%= user.full_name %>
+              <% end %>
+            <% else %>
               <%= user.full_name %>
             <% end %>
+
           </td>
           <!-- 退会状況 -->
           <td><%= user.is_active ? 'アクティブ' : '退会済み' %></td>
