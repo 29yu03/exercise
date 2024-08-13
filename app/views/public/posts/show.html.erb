@@ -39,9 +39,6 @@
       <div class="col-12 order-4">
         <% if @post.image.attached? %>
           <%= image_tag @post.image.variant(resize_to_fit: [400, nil]).processed, alt: "Post Image", style: "width: 100%;" %><br>
-          <% @post.tags.each do |tag| %>
-            <div class="label"><%= tag.name %></div>
-          <% end %>
         <% else %>
           <%= image_tag 'no_image.jpg', class: "w-100", alt: "No Image" %>
         <% end %>
