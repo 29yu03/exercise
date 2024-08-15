@@ -2,7 +2,6 @@
 
   <!-- ユーザー情報 -->
   <div class="row mr-5 py-5 px-5 border-bottom border-secondary">
-    <div class="col-2 d-none d-md-block"></div>
     <div class="col d-none d-md-block">
       <%= image_tag @user.get_profile_image(250, 250), width: 200, height: 200, style: "border-radius: 10px; border: 8px solid white;" %>
     </div>
@@ -22,7 +21,19 @@
       <% end %>
 
     </div>
-    <div class="col-1 d-none d-md-block"></div>
+    <div class="col d-none d-md-block">
+      <% if current_user != @user %>
+        <% if current_user.following?(@user) %>
+          <%= button_to 'Unfollow', relationship_path(current_user.active_relationships.find_by(following_id: @user.id)), method: :delete %>
+        <% else %>
+          <%= button_to 'Follow', relationships_path(following_id: @user.id), method: :post %>
+        <% end %>
+      <% end %>
+      <div class="mt-2">
+        <%= link_to 'Followers', followers_user_path(@user) %>
+        <%= link_to 'Following', following_user_path(@user) %>
+      </div>
+    </div>
   </div>
 
   <!-- ユーザー投稿・記事一覧 -->

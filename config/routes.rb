@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  namespace :public do
+    get 'relationships/create'
+    get 'relationships/destroy'
+  end
   namespace :admin do
     get 'search/index'
   end
@@ -53,8 +57,11 @@ Rails.application.routes.draw do
     resources :users, only: [:show, :edit, :update] do
       member do
         patch 'deactivate'
+        get :following, :followers
       end
     end
+    resources :relationships, only: [:create, :destroy]
+
      # 検索
     get 'search', to: 'search#index', as: :search
     get "communities/:id/permits" => "communities#permits", as: :permits
