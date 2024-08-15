@@ -1,3 +1,11 @@
-<% provide(:title, @title) %>
-<h3><%= @title %></h3>
-<%= render @users %>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3><%= @user.full_name %></h3>
+      <% provide(:title, @title) %>
+      <h3><%= @title %></h3>
+      <%= render @users %>
+      <%= link_to 'Back', user_path(@user) %>
+    </div>
+  </div>
+</div>

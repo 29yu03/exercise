@@ -1,3 +1,14 @@
 <div class="user">
-  <%= link_to user.full_name, user %>
+  <div class="container mx-5 px-5">
+    <div class="row mx-5 px-5">
+      <div class="col-4"></div>
+      <div class="col my-2">
+        <%= image_tag user.get_profile_image(100, 100), width: 60, height: 60, style: "border-radius: 50px;"  %>
+      </div>
+      <div class="col d-flex align-items-center">
+        <%= link_to user.full_name, user %>
+      </div>
+      <div class="col-5"></div>
+    </div>
+  </div>
 </div>
