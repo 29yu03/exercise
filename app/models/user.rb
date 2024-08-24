@@ -23,6 +23,7 @@ class User < ApplicationRecord
                                   dependent: :destroy
   has_many :following, through: :active_relationships, source: :following
 
+  # フォロワーとの関連付け
   has_many :passive_relationships, class_name: "Relationship",
                                    foreign_key: "following_id",
                                    dependent: :destroy

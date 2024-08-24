@@ -59,8 +59,9 @@ Rails.application.routes.draw do
         patch 'deactivate'
         get :following, :followers
       end
+      resources :relationships, only: [:create, :destroy]
     end
-    resources :relationships, only: [:create, :destroy]
+
 
      # 検索
     get 'search', to: 'search#index', as: :search

@@ -2,14 +2,13 @@ class Public::RelationshipsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    user = User.find(params[:following_id])
-    current_user.follow(user)
-    redirect_to user
+    @relationship = current_user.active_relationships.create(following_id: params[:following_id])
+    redirect_to user_path(params[:following_id])
   end
 
   def destroy
-    user = User.find(params[:id])
-    current_user.unfollow(user)
-    redirect_to user
+    @relationship = current_user.active_relationships.find(params[:id])
+    @relationship.destroy
+    redirect_to user_path(params[:user_id])
   end
 end

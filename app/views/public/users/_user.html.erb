@@ -1,20 +1,57 @@
-<div class="user">
+<div class="user d-none d-md-block">
   <div class="container mx-5 px-5">
     <div class="row mx-5 px-5">
-      <table class="table-bottom">
-        <tr>
-          <td class="align-middle pl-5">
-            <%= link_to user do %>
-              <%= image_tag user.get_profile_image(100, 100), width: 60, height: 60, style: "border-radius: 50px;"  %>
-            <% end %>
-          </td>
-          <td class="align-middle pl-4">
-            <h5 class="mt-1"><%= link_to user.full_name, user, style: "color: #545454;" %></h5>
-            <p style="font-size: 13px;"><%= user.introduction %></p>
-          </td>
-        </tr>
-      </table>
+      <div class="col-md-2">
+        <!-- ユーザーの画像 -->
+        <%= link_to user do %>
+          <%= image_tag user.get_profile_image(100, 100), width: 60, height: 60, style: "border-radius: 50px;" %>
+        <% end %>
+      </div>
+      <!-- ユーザーの名前と紹介文 -->
+      <div class="col-md-5">
+        <h5 class="mt-1"><%= link_to user.full_name, user, style: "color: #545454;" %></h5>
+        <p style="font-size: 13px;"><%= user.introduction %></p>
+      </div>
 
+      <!-- フォローボタン（自分以外のユーザーに対してのみ表示） -->
+      <div class="col-md-5 text-end">
+        <% if current_user != user %>
+          <% if current_user.following?(user) %>
+            <%= button_to 'フォローをやめる', user_relationship_path(user, current_user.active_relationships.find_by(following_id: user.id).id), method: :delete, class: "btn btn-danger" %>
+          <% else %>
+            <%= button_to 'フォロー', user_relationships_path(user_id: user.id, following_id: user.id), method: :post, class: "btn btn-primary" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="user d-md-none">
+  <div class="container mx-5 px-5">
+    <div class="row mx-5 px-5">
+      <div class="col-md-2">
+        <!-- ユーザーの画像 -->
+        <%= link_to user do %>
+          <%= image_tag user.get_profile_image(100, 100), width: 60, height: 60, style: "border-radius: 50px;" %>
+        <% end %>
+      </div>
+      <!-- ユーザーの名前と紹介文 -->
+      <div class="col-md-5">
+        <h5 class="mt-1"><%= link_to user.full_name, user, style: "color: #545454;" %></h5>
+        <p style="font-size: 13px;"><%= user.introduction %></p>
+      </div>
+
+      <!-- フォローボタン（自分以外のユーザーに対してのみ表示） -->
+      <div class="col-md-5 text-end">
+        <% if current_user != user %>
+          <% if current_user.following?(user) %>
+            <%= button_to 'フォローをやめる', user_relationship_path(user, current_user.active_relationships.find_by(following_id: user.id).id), method: :delete, class: "btn btn-danger" %>
+          <% else %>
+            <%= button_to 'フォロー', user_relationships_path(user_id: user.id, following_id: user.id), method: :post, class: "btn btn-primary" %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
