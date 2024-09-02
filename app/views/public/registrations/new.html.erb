@@ -5,7 +5,9 @@
   </div>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= render "public/shared/error_messages", resource: resource %>
+    <div class="text-center" style="font-size: 14px;">
+      <p><%= render "public/shared/error_messages", resource: resource %></p>
+    </div>
 
     <div class="row justify-content-center mt-4">
       <div class="col-md-2">

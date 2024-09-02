@@ -5,7 +5,7 @@
     <% if user_signed_in? %>  <!-- もしログインしてなければアイコンを表示させない -->
       <% if @post.errors.any? %>
         <div class="alert alert-danger">
-          <h4 class="alert-heading">エラーが発生しました:</h4>
+          <h4 class="alert-heading">投稿に失敗しました。</h4>
           <ul>
             <% @post.errors.full_messages.each do |message| %>
               <p><%= message %></p>

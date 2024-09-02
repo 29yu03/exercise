@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   validates :introduction, length: { maximum: 500 }, allow_blank: true
   validates :last_name, :first_name, presence: true, length: { maximum: 50 }
-  validates :last_name_kana, :first_name_kana, presence: true, format: { with: /\A[\p{katakana}\u30fc]+\z/, message: "はカタカナで入力してください" }
+  validates :last_name_kana, :first_name_kana, presence: true, format: { with: /\A[\p{katakana}\u30fc]+\z/, message: "を入力してください" }
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :telephone_number, presence: true, format: { with: /\A\d{10,11}\z/, message: "は10桁または11桁の数字で入力してください" }
   validates :password, presence: true, length: { minimum: 6 }, confirmation: true, :on => :create

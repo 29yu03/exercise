@@ -7,5 +7,4 @@ class Community < ApplicationRecord
   validates :name, presence: true
   #validates :introduction, presence: true
 
-  validates :name, presence: true
 end

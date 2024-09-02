@@ -14,6 +14,8 @@
     <h5><%= paginate @communities %></h5>
   </div>
 
+  <%= render "public/shared/error_messages", resource: @community %>
+
   <!-- 新規コミュニティ作成フォーム -->
   <%= form_with model: @community, local: true do |f| %>
     <!-- グループ名入力 -->

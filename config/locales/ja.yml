@@ -10,8 +10,12 @@ ja:
         first_name_kana : メイ
         telephone_number : 電話番号
       post:
-        text: テキスト
+        title: タイトル
         image: 画像
+        subtitle: サブタイトル
+        body: 本文
+      community:
+        name: グループ名
   activemodel:   # Formオブジェクトを用いた場合
      attributes:
        order_object:

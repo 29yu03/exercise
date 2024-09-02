@@ -19,7 +19,7 @@ class Public::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  # protected　
+  # protected
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params
@@ -39,7 +39,7 @@ class Public::SessionsController < Devise::SessionsController
     # 【処理内容4】 アクティブでない会員に対する処理
     unless user.is_active
       flash[:alert] = "このアカウントは退会済みです。"
-      redirect_to new_user_registration_path
+      redirect_to new_user_session_path
     end
   end
 end

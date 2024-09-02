@@ -28,7 +28,8 @@ class Public::CommunitiesController < ApplicationController
     if @community.save
       redirect_to communities_path
     else
-      @communities = Community.all
+      @communities = Community.page(params[:page]).per(16)
+      flash.now[:alert] = 'コミュニティの作成に失敗しました。'
       render :index
     end
   end
