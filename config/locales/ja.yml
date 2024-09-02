@@ -1,0 +1,18 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        email: Eメール
+        password : パスワード
+        last_name : 姓
+        first_name : 名
+        last_name_kana : セイ
+        first_name_kana : メイ
+        telephone_number : 電話番号
+      post:
+        text: テキスト
+        image: 画像
+  activemodel:   # Formオブジェクトを用いた場合
+     attributes:
+       order_object:
+         post_code: 郵便番号
